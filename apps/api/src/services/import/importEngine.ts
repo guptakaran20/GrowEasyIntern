@@ -68,8 +68,15 @@ export async function processImport(
 
           const batchImported: CrmRecord[] = [];
           const batchSkipped: SkippedRecord[] = [];
+          const extractedRowsSeen = new Set<number>();
 
           for (const extracted of extraction.records) {
+            if (extractedRowsSeen.has(extracted.row_number)) {
+              // Skip hallucinated duplicates from AI
+              continue;
+            }
+            extractedRowsSeen.add(extracted.row_number);
+
             const sourceRow = rowMap.get(extracted.row_number);
             if (!sourceRow) {
               batchSkipped.push({
@@ -85,6 +92,17 @@ export async function processImport(
               batchSkipped.push(result.skip);
             } else {
               batchImported.push(result.record);
+            }
+          }
+
+          // Catch any rows the AI silently dropped
+          for (const row of batchRows) {
+            if (!extractedRowsSeen.has(row.row_number)) {
+              batchSkipped.push({
+                row_number: row.row_number,
+                reason: 'AI silently dropped this row during extraction',
+                original_record: row.data,
+              });
             }
           }
 

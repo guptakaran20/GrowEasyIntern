@@ -309,18 +309,56 @@ async function extractBatchRecursive(
   batchRows: BatchRowInput[],
   heldBack: HeldBackByRow,
 ): Promise<BatchExtractionResponse> {
+  if (batchRows.length === 0) return { records: [] };
+
   try {
-    return await extractBatchOnce(mappings, batchRows, heldBack);
+    const result = await extractBatchOnce(mappings, batchRows, heldBack);
+
+    const requestedRows = new Set(batchRows.map((r) => r.row_number));
+    const uniqueRecords = [];
+    const seen = new Set<number>();
+
+    for (const rec of result.records) {
+      if (requestedRows.has(rec.row_number) && !seen.has(rec.row_number)) {
+        seen.add(rec.row_number);
+        uniqueRecords.push(rec);
+      }
+    }
+
+    if (uniqueRecords.length === batchRows.length) {
+      return { records: uniqueRecords };
+    }
+
+    if (uniqueRecords.length === 0) {
+      throw new ExtractionTruncatedError(
+        'ZERO_PROGRESS',
+        0,
+        rowNumbers(batchRows),
+        'AI failed to extract any requested rows (hallucination loop)',
+      );
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      logger.warn('AI silently dropped rows, recursively extracting the remainder', {
+        expected: batchRows.length,
+        extracted: uniqueRecords.length,
+      });
+    }
+
+    const missingRows = batchRows.filter((r) => !seen.has(r.row_number));
+    const missingResult = await extractBatchRecursive(mappings, missingRows, heldBack);
+
+    return { records: [...uniqueRecords, ...missingResult.records] };
   } catch (err) {
     if (err instanceof ExtractionTruncatedError && batchRows.length > 1) {
       const [first, second] = splitBatchInHalf(batchRows);
       if (process.env.NODE_ENV !== 'production') {
-        logger.warn('Splitting truncated batch into smaller sub-batches', {
+        logger.warn('Splitting batch into smaller sub-batches', {
           originalRowCount: batchRows.length,
           sourceRowNumbers: rowNumbers(batchRows),
           firstHalf: rowNumbers(first),
           secondHalf: rowNumbers(second),
-          responseLength: err.responseLength,
+          reason: err.finishReason,
         });
       }
       const r1 = await extractBatchRecursive(mappings, first, heldBack);
