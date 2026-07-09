@@ -18,21 +18,21 @@ const navGroups = [
   {
     label: 'Main',
     items: [
-      { icon: LayoutDashboard, label: 'Dashboard', active: false },
-      { icon: Users, label: 'Manage Leads', active: true },
-      { icon: Building2, label: 'Properties', active: false },
+      { icon: LayoutDashboard, label: 'Dashboard', active: false, disabled: true },
+      { icon: Users, label: 'Manage Leads', active: true, disabled: false },
+      { icon: Building2, label: 'Properties', active: false, disabled: true },
     ],
   },
   {
     label: 'Analytics',
     items: [
-      { icon: BarChart3, label: 'Reports', active: false },
+      { icon: BarChart3, label: 'Reports', active: false, disabled: true },
     ],
   },
   {
     label: 'Settings',
     items: [
-      { icon: Settings, label: 'Settings', active: false },
+      { icon: Settings, label: 'Settings', active: false, disabled: true },
     ],
   },
 ];
@@ -72,10 +72,14 @@ export function Sidebar() {
               {group.items.map((item) => (
                 <li key={item.label}>
                   <button
+                    disabled={item.disabled}
+                    title={item.disabled ? "Coming soon" : ""}
                     className={cn(
                       'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors',
                       item.active
                         ? 'bg-teal-50 font-medium text-teal-700'
+                        : item.disabled
+                        ? 'text-slate-400 opacity-60 cursor-not-allowed'
                         : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900',
                     )}
                   >

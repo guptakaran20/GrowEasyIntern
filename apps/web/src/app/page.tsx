@@ -37,7 +37,6 @@ export default function HomePage() {
 
   return (
     <div className="flex min-h-screen">
-      <Sidebar />
 
       <main className="flex flex-1 flex-col lg:ml-0">
         <PageHeader onImportClick={() => setModalOpen(true)} />

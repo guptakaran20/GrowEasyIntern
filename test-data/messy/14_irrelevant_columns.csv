@@ -1,3 +1,0 @@
-name,email,phone,internal_id,utm_source,utm_medium,fbclid,gclid,row_hash,debug_flag
-John,john@test.com,9876543210,ID-99281,facebook,cpc,fb123,gc456,abc123,true
-Jane,jane@test.com,9876543211,ID-99282,google,display,,gc789,def456,false

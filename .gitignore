@@ -10,3 +10,4 @@ coverage/
 *.tsbuildinfo
 IMPLEMENTATION_PLAN.md
 TESTING.md
+data

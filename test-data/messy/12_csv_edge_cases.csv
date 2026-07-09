@@ -1,6 +1,0 @@
-name,company,note,contact
-"John Doe","Smith, Johnson & Co.","Interested, call tomorrow","  john.doe@example.com  "
-"Jane","He said ""call me tomorrow""",,
-Unicode,Test Corp,名前テスト — café résumé,"+91 98765 43210"
-Emoji User,Fun Inc,"Status: 👍 interested 🏠",
-Long Note,Co,"This is a very long note that should not break CSV export when re-imported. It contains multiple sentences and punctuation, including commas, semicolons; and quotes ""like this"".","not-an-email"

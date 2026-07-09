@@ -1,3 +1,0 @@
-created_at,name,email,country_code,mobile_without_country_code,company,city,state,country,lead_owner,crm_status,crm_note,data_source,possession_time,description
-2024-01-15T10:30:00.000Z,John Doe,john@example.com,+91,9876543210,Acme Corp,Bangalore,Karnataka,India,Sales Team,GOOD_LEAD_FOLLOW_UP,Interested in 3BHK,eden_park,,Looking for property in Whitefield
-2024-01-16T14:00:00.000Z,Jane Smith,jane@example.com,+91,9876543211,Tech Inc,Mumbai,Maharashtra,India,Raj Kumar,GOOD_LEAD_FOLLOW_UP,Callback requested,meridian_tower,,Wants 2BHK near IT park
