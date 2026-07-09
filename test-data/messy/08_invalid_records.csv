@@ -1,0 +1,6 @@
+name,email,phone
+John,john@test.com,
+Sarah,,9876543210
+Rahul,,
+Priya,invalid-email,
+Amit,,invalid-phone

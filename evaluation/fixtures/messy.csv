@@ -1,0 +1,6 @@
+name,company,note
+"John Doe","Smith, Johnson & Co.","Interested, call tomorrow"
+"Jane","He said ""call me tomorrow"""
+Unicode,Test Corp,名前テスト — café résumé
+Emoji User,Fun Inc,"Status: 👍 interested 🏠"
+Long Note,Co,"This is a very long note that should not break CSV export when re-imported. It contains multiple sentences and punctuation, including commas, semicolons; and quotes ""like this""."

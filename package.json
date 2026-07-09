@@ -1,0 +1,25 @@
+{
+  "name": "groeasy-crm-importer",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w @groeasy/api\" \"npm run dev -w @groeasy/web\"",
+    "build": "npm run build -w @groeasy/shared && npm run build -w @groeasy/api && npm run build -w @groeasy/web",
+    "test": "npm run test -w @groeasy/api",
+    "test:data": "tsx scripts/generate-test-data.ts",
+    "evaluate": "tsx evaluation/run-evaluation.ts",
+    "lint": "npm run lint -w @groeasy/api && npm run lint -w @groeasy/web",
+    "typecheck": "npm run typecheck -w @groeasy/shared && npm run typecheck -w @groeasy/api && npm run typecheck -w @groeasy/web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
