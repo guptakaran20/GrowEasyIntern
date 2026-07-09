@@ -1,0 +1,4 @@
+name,email,phone,company,city,state,country,lead_owner,crm_status,crm_note,data_source,description
+Sparse One,only@email.com,,,,,,,,,,
+Sparse Two,,9876543210,,,,,,,,,
+Partial,partial@test.com,9876543210,Some Co,,,,,,,

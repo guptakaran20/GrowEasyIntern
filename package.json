@@ -11,7 +11,7 @@
     "build": "npm run build -w @groeasy/shared && npm run build -w @groeasy/api && npm run build -w @groeasy/web",
     "test": "npm run test -w @groeasy/api",
     "test:data": "tsx scripts/generate-test-data.ts",
-    "evaluate": "tsx evaluation/run-evaluation.ts",
+    "evaluate": "tsx data/evaluation/run-evaluation.ts",
     "lint": "npm run lint -w @groeasy/api && npm run lint -w @groeasy/web",
     "typecheck": "npm run typecheck -w @groeasy/shared && npm run typecheck -w @groeasy/api && npm run typecheck -w @groeasy/web"
   },

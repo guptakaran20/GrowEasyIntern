@@ -5,8 +5,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'GrowEasy CRM',
-  description: 'AI-powered universal CRM CSV importer',
+  title: 'GrowEasy CSV Importer',
+  description: 'Turn messy CSV files into clean CRM data with AI. Preview locally, map intelligently, and export cleanly.',
 };
 
 export default function RootLayout({

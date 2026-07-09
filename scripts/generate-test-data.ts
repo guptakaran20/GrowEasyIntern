@@ -5,7 +5,7 @@
 import { writeFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
-const ROOT = join(__dirname, '..', 'test-data', 'performance');
+const ROOT = join(__dirname, '..', 'data', 'test-data', 'performance');
 
 function generateRows(count: number): string {
   const header =

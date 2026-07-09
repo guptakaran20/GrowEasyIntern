@@ -1,0 +1,3 @@
+name,email,phone
+"Unclosed quote value,john@test.com,9876543210
+Broken,not-closed",bad@test.com,

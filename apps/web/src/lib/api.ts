@@ -98,9 +98,13 @@ export function subscribeToProgress(
     }
   };
 
-  eventSource.onerror = () => {
-    eventSource.close();
-    onError(new Error('Progress stream disconnected'));
+  eventSource.onerror = (err) => {
+    // Native EventSource will try to reconnect automatically on network drops.
+    // We only want to surface terminal or unrecoverable transport errors.
+    // A closed state (readyState === 2) means it won't reconnect.
+    if (eventSource.readyState === EventSource.CLOSED) {
+      onError(new Error('Progress stream disconnected permanently'));
+    }
   };
 
   return () => eventSource.close();

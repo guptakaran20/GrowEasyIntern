@@ -1,0 +1,12 @@
+name,email,status
+A,a@test.com,Interested
+B,b@test.com,Call tomorrow
+C,c@test.com,Hot Lead
+D,d@test.com,No answer
+E,e@test.com,Phone switched off
+F,f@test.com,Not interested
+G,g@test.com,Junk lead
+H,h@test.com,Deal closed
+I,i@test.com,Converted
+J,j@test.com,Payment completed
+K,k@test.com,Unknown random status

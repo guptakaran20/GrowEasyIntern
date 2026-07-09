@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { readFileSync, existsSync } from 'fs';
 
-export const TEST_DATA_ROOT = join(__dirname, '..', '..', '..', '..', 'test-data');
+export const TEST_DATA_ROOT = join(__dirname, '..', '..', '..', '..', 'data', 'test-data');
 
 export function loadTestCsv(relativePath: string): Buffer {
   const fullPath = join(TEST_DATA_ROOT, relativePath);

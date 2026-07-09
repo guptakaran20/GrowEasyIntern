@@ -1,0 +1,10 @@
+name,email,created_date
+Alice,a@test.com,2026-05-13 14:20:48
+Bob,b@test.com,2026-05-13T14:20:48Z
+Carol,c@test.com,13/05/2026
+Dave,d@test.com,05/13/2026
+Eve,e@test.com,13 May 2026
+Frank,f@test.com,"May 13, 2026"
+Grace,g@test.com,2026/05/13
+Henry,h@test.com,01/02/2026
+Ivy,i@test.com,03/04/2026
