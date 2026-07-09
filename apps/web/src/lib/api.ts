@@ -79,7 +79,7 @@ export async function startImportJob(
 
 export function subscribeToProgress(
   jobId: string,
-  onProgress: (data: object) => void,
+  onProgress: (data: unknown) => void,
   onComplete: () => void,
   onError: (err: Error) => void,
 ): () => void {
@@ -98,7 +98,7 @@ export function subscribeToProgress(
     }
   };
 
-  eventSource.onerror = (err) => {
+  eventSource.onerror = () => {
     // Native EventSource will try to reconnect automatically on network drops.
     // We only want to surface terminal or unrecoverable transport errors.
     // A closed state (readyState === 2) means it won't reconnect.

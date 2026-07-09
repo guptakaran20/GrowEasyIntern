@@ -9,11 +9,13 @@ interface ImportProgressPanelProps {
 }
 
 export function ImportProgressPanel({ progress, totalRows }: ImportProgressPanelProps) {
-  const hasLiveProgress = progress != null && progress.total_rows > 0;
+  const hasLiveProgress = progress != null;
   const rowsProcessed = progress?.rows_processed ?? 0;
   const total = progress?.total_rows ?? totalRows;
-  const percent = hasLiveProgress && total > 0 ? Math.round((rowsProcessed / total) * 100) : null;
-  const stage = progress?.stage ?? 'Processing records with AI…';
+  const percent = total > 0 ? Math.round((rowsProcessed / total) * 100) : 0;
+  const stage = progress?.stage ?? 'Preparing job...';
+  const currentBatch = progress?.current_batch ?? 0;
+  const totalBatches = progress?.total_batches ?? 0;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -30,7 +32,12 @@ export function ImportProgressPanel({ progress, totalRows }: ImportProgressPanel
             <>
               <div className="mb-2 flex justify-between text-sm text-slate-600">
                 <span>{rowsProcessed} / {total} rows</span>
-                <span>{percent}%</span>
+                {totalBatches > 0 && (
+                  <span className="text-slate-400 border-l border-slate-200 pl-2 ml-2">
+                    Batch {currentBatch} of {totalBatches}
+                  </span>
+                )}
+                <span className="ml-auto font-medium">{percent}%</span>
               </div>
               <div className="h-2 overflow-hidden rounded-full bg-slate-100">
                 <div
