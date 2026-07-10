@@ -2,7 +2,7 @@
 
 ## Hybrid AI + Deterministic Pipeline
 
-GrowEasy CRM CSV Importer uses a **hybrid architecture** where deterministic code handles structural parsing, validation, and normalization, while Gemini AI resolves semantic ambiguity.
+Importlyai CRM CSV Importer uses a **hybrid architecture** where deterministic code handles structural parsing, validation, and normalization, while Gemini AI resolves semantic ambiguity.
 
 ```mermaid
 flowchart TD

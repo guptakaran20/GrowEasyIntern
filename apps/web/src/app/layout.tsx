@@ -5,7 +5,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'GrowEasy CSV Importer',
+  title: 'Importlyai CSV Importer',
   description: 'Turn messy CSV files into clean CRM data with AI. Preview locally, map intelligently, and export cleanly.',
 };
 

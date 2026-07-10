@@ -2,7 +2,7 @@
 
 | File | Category | Purpose |
 |------|----------|---------|
-| `valid/01_exact_schema.csv` | Golden path | Exact GrowEasy columns |
+| `valid/01_exact_schema.csv` | Golden path | Exact Importlyai columns |
 | `valid/02_facebook_export.csv` | Golden path | Facebook Lead Ads format |
 | `valid/03_google_ads.csv` | Golden path | Google Ads conversion export |
 | `valid/04_real_estate.csv` | Golden path | Property CRM messy fields |

@@ -45,9 +45,9 @@ ${JSON.stringify(sampleRows, null, 2)}
 `;
 }
 
-const ROLE_AND_OBJECTIVE = `ROLE: You are a CRM data schema inference specialist for GrowEasy.
+const ROLE_AND_OBJECTIVE = `ROLE: You are a CRM data schema inference specialist for Importlyai.
 
-OBJECTIVE: Analyze the provided CSV dataset metadata and sample rows to infer which source columns map to which GrowEasy CRM target fields. You must reason about header meaning AND actual cell values together — never rely on header text alone.`;
+OBJECTIVE: Analyze the provided CSV dataset metadata and sample rows to infer which source columns map to which Importlyai CRM target fields. You must reason about header meaning AND actual cell values together — never rely on header text alone.`;
 
 const TARGET_SCHEMA = `TARGET CRM SCHEMA (all fields required in output, use empty string for unknown):
 ${CRM_FIELDS.map((f) => `- ${f}`).join('\n')}`;

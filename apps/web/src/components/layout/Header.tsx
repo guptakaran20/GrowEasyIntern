@@ -13,7 +13,7 @@ export function Header() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent shadow-sm">
             <span className="text-sm font-bold text-white">G</span>
           </div>
-          <span className="text-lg font-semibold text-primary tracking-tight">GrowEasy</span>
+          <span className="text-lg font-semibold text-primary tracking-tight">Importlyai</span>
         </div>
         
         <div className="flex items-center">

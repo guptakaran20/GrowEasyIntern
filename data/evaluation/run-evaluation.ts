@@ -712,7 +712,7 @@ async function main() {
 
 
 
-  console.log('=== GrowEasy CRM Importer — AI Evaluation Benchmark ===\n');
+  console.log('=== Importlyai CRM Importer — AI Evaluation Benchmark ===\n');
 
 
 

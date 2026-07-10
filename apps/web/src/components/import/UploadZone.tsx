@@ -94,7 +94,7 @@ export function UploadZone({ onFileSelected }: UploadZoneProps) {
                 Click or drag CSV file here
               </p>
               <p className="mt-1 text-sm text-muted">
-                Intelligent mapping to GrowEasy CRM
+                Intelligent mapping to Importlyai CRM
               </p>
             </div>
           )}

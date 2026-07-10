@@ -47,7 +47,7 @@ export function Sidebar() {
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-500">
           <span className="text-sm font-bold text-white">G</span>
         </div>
-        <span className="text-lg font-semibold text-slate-900">GrowEasy</span>
+        <span className="text-lg font-semibold text-slate-900">Importlyai</span>
       </div>
 
       {/* Workspace card */}
@@ -55,7 +55,7 @@ export function Sidebar() {
         <button className="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-left hover:bg-slate-50">
           <div>
             <p className="text-xs text-slate-500">Workspace</p>
-            <p className="text-sm font-medium text-slate-900">GrowEasy CRM</p>
+            <p className="text-sm font-medium text-slate-900">Importlyai CRM</p>
           </div>
           <ChevronDown className="h-4 w-4 text-slate-400" />
         </button>

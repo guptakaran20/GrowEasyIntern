@@ -91,7 +91,7 @@ export function UploadModal({ open, onClose, onFileSelected }: UploadModalProps)
         <div className="px-6 py-5">
           <p className="mb-4 text-sm text-muted">
             Upload a CSV file containing your lead data. We&apos;ll intelligently map
-            columns to the GrowEasy CRM schema.
+            columns to the Importlyai CRM schema.
           </p>
 
           <div

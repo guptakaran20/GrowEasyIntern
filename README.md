@@ -1,4 +1,4 @@
-# GrowEasy CRM Importer
+# Importlyai CRM Importer
 
 An AI-powered CSV-to-CRM importer that converts messy, inconsistent lead exports into validated CRM-ready records.
 
@@ -6,7 +6,7 @@ An AI-powered CSV-to-CRM importer that converts messy, inconsistent lead exports
 
 ## 1. What does this project do?
 
-GrowEasy CRM Importer is a robust pipeline that safely ingests unstandardized data formats—such as exports from Facebook Leads, Google Ads, or custom Real Estate databases—and maps them seamlessly to a unified CRM schema.
+Importlyai CRM Importer is a robust pipeline that safely ingests unstandardized data formats—such as exports from Facebook Leads, Google Ads, or custom Real Estate databases—and maps them seamlessly to a unified CRM schema.
 
 ## 2. Why is it technically difficult?
 
