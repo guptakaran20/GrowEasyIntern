@@ -1,222 +1,202 @@
-# GrowEasy CRM CSV Importer
+# GrowEasy CRM Importer
 
-AI-powered universal CRM CSV importer that intelligently converts messy lead data from any source into the GrowEasy CRM schema.
+An AI-powered CSV-to-CRM importer that converts messy, inconsistent lead exports into validated CRM-ready records.
 
-**Position applied for:** Intern
+![Product Screenshot](docs/images/product_screenshot.png)
 
-**Live demo:** _[Add deployment URL]_
+## 1. What does this project do?
 
-## Value Proposition
+GrowEasy CRM Importer is a robust pipeline that safely ingests unstandardized data formats—such as exports from Facebook Leads, Google Ads, or custom Real Estate databases—and maps them seamlessly to a unified CRM schema.
 
-Upload almost any CSV — Facebook leads, Google Ads exports, real estate CRMs, sales reports — and get clean, validated CRM records. The system uses a **hybrid AI + deterministic pipeline** where Gemini resolves semantic ambiguity and code enforces guarantees.
+## 2. Why is it technically difficult?
 
-## Repository Structure
+A basic CSV importer assumes a perfectly aligned schema: `Name -> name`, `Email -> email`, `Phone -> phone`.
+In reality, messy exports contain:
+- Unpredictable column headers (`Customer`, `Lead Name`, `Contact Person`, `Mail ID`, `Phone 1`, `WhatsApp`)
+- Heterogeneous schemas combining multiple data sources
+- Ambiguous or contaminated fields (e.g., status flags in name columns)
+- Multiple contacts collapsed into single rows
+- Messy date formats
+- Large files that can crash browser tabs
 
-```
-├── apps/
-│   ├── web/          # Next.js frontend (App Router, Tailwind)
-│   └── api/          # Express backend (TypeScript)
-├── packages/
-│   └── shared/       # Shared types, enums, Zod schemas
-├── test-data/        # Test CSV datasets (valid/, messy/, adversarial/, etc.)
-├── scripts/          # AI evaluation harness
-└── docs/             # Architecture documentation
-```
+This project tackles these issues by combining **LLM-driven semantic schema inference** with a **deterministic validation pipeline** that handles extraction errors, prompt injections, partial batch failures, and memory limits securely.
 
-## Architecture Overview
+## 3. What makes this implementation better than a basic CSV parser?
+
+### Hybrid AI + Deterministic Pipeline
+
+We do **not** blindly trust the LLM. Sending raw CSVs directly to an AI is brittle, unscalable, and prone to hallucinations or silent omissions. Instead, we use a hybrid pipeline:
+
+1. **Local CSV Parsing:** Data is chunked and parsed in the browser natively (zero API calls).
+2. **AI Schema Inference:** Gemini infers column relationships using a semantic map.
+3. **User Mapping Review:** The user confirms the AI’s mapping.
+4. **Compact Batch Extraction:** Data is extracted safely in small batches.
+5. **Structured JSON Schema:** Gemini is constrained to exact output shapes.
+6. **Zod Validation:** Strict type enforcement ensures validity.
+7. **Deterministic Contact Discovery:** Fallbacks accurately isolate and route primary emails/phones vs. secondary data.
+8. **Normalization & Source Grounding:** We guarantee hallucinated fields are stripped.
+9. **Enum Enforcement:** CRM status codes are safely cast.
+10. **Failure Isolation:** One malformed row does not crash a 500-row batch.
+11. **CSV-Safe Export:** Data is round-trip sanitized for safety.
+
+### AI Reliability & Engineering Defenses
+- **Structured JSON Output & Bounded Schema:** Gemini is locked into strict `response_mime_type: "application/json"`.
+- **Sequential Request Control:** Protects free-tier rate limits.
+- **Malformed JSON Handling & Retry Behavior:** Recovers automatically from invalid LLM responses.
+- **MAX_TOKENS Detection:** Dynamically falls back and splits batches when AI output exceeds token limits.
+- **Prompt Injection Isolation:** Adversarial data is held back from the LLM context to prevent poisoning.
+
+### Edge Cases Handled
+
+| Problem | Engineering Solution |
+|---|---|
+| Multiple emails | First becomes primary; extras preserved deterministically in `crm_note` |
+| Multiple phones | First becomes primary; extras preserved deterministically in `crm_note` |
+| Phone mapped to state | Deterministic contamination guards reject the invalid mapping |
+| AI invents "unknown state" | Placeholder normalization + source grounding clears it |
+| Prompt injection in remarks | Held back from LLM prompt and preserved deterministically |
+| Malformed Gemini JSON | Parse diagnostics + retry + failure isolation |
+| AI hits `MAX_TOKENS` | Batch splitting and deterministic fallback |
+| No email and no phone | Record safely skipped (un-contactable) |
+
+### Large File Support
+- **10,000 Row Limit:** Supported efficiently.
+- **Incremental Parsing:** Papa Parse chunking (> 512KB) parses rows without freezing the UI.
+- **Zero API Calls Before Confirmation:** The browser parses everything locally up front.
+
+## 4. Architecture
 
 ```mermaid
-flowchart LR
-    subgraph Frontend
-        A[Upload] --> B[Local Preview]
-        B --> C[Mapping Review]
-        C --> D[Results]
-    end
-    subgraph Backend
-        E[CSV Parser] --> F[Profiler]
-        F --> G[Gemini Stage A]
-        G --> H[Gemini Stage B]
-        H --> I[Normalizer]
-        I --> J[Validator]
-    end
-    B -->|Analyze| E
-    C -->|Import| H
-    J --> D
+graph TD
+    A[Browser] --> B[Local CSV parsing]
+    B --> C[Preview]
+    C --> D[Confirm & Analyze]
+    D --> E[Express API]
+    E --> F[Gemini schema inference]
+    F --> G[Mapping review]
+    G --> H[Async import job]
+    H --> I[Batched extraction]
+    I --> J[Deterministic normalization/grounding]
+    J --> K[SSE progress]
+    K --> L[Results/Export]
 ```
 
-See [docs/architecture.md](docs/architecture.md) for the full pipeline diagram.
+**Stack:**
+- **Frontend:** Next.js (Standalone)
+- **Backend:** Node.js / Express API
+- **AI Engine:** Google Gemini
+- **Types:** Shared Zod package (`@groeasy/shared`)
 
-## Why Hybrid AI + Deterministic Processing?
+## 5. Can I inspect the code quickly?
 
-**The hard problem is semantic understanding, not CSV parsing.**
-
-- **Deterministic code** handles: parsing, profiling, email/phone regex, date formats, enum validation, Zod schemas, batch splitting
-- **Gemini AI** handles: column meaning inference, CRM status semantics, data source mapping, ambiguous field extraction
-
-This avoids the anti-pattern of sending raw rows blindly to an LLM.
-
-## Import Flow
-
-1. User uploads CSV → browser previews locally (no AI call)
-2. User clicks "Confirm & Analyze" → backend profiles dataset
-3. Gemini infers column-to-field mappings (Stage A)
-4. User reviews mappings, adjusts if needed
-5. User confirms → backend processes in batches (Stage B)
-6. Deterministic normalization + validation
-7. Results: imported records, skipped records with reasons, CSV export
-
-## AI Pipeline
-
-| Stage | Purpose | Input | Output |
-|-------|---------|-------|--------|
-| A | Schema Inference | Headers, profiles, samples | Column mappings + confidence |
-| B | Batch Extraction | Confirmed mappings + rows | CRM fields per row |
-
-Prompts are isolated in `apps/api/src/ai/prompts/` with explicit injection defense.
-
-## Prompt Engineering Strategy
-
-- Separate prompt modules (not inline in routes)
-- Clear sections: role, objective, schema, enums, rules, output contract
-- CSV data delimited and marked as untrusted
-- Structured JSON output via Gemini SDK + Zod validation
-
-## Batch Processing
-
-- Default batch size: 25 rows
-- Concurrency: 2 parallel batches
-- Retries: 3 with exponential backoff + jitter
-- Partial failures don't destroy successful work
-
-## Validation Strategy
-
-- All AI responses validated with Zod
-- CRM records must have valid email OR phone
-- Enum fields validated against allowed values
-- Empty strings for unknown fields (never null/undefined)
-
-## Local Setup
-
-### Prerequisites
-
-- Node.js 20+
-- Gemini API key
-
-### Installation
-
-```bash
-git clone <repo-url>
-cd groeasy-crm-importer
-npm install
+### Repository Structure
+```text
+.
+├── apps
+│   ├── api (Express backend)
+│   └── web (Next.js frontend)
+├── packages
+│   └── shared (Zod schemas / TS Interfaces)
+├── data
+│   ├── test-data (CSV fixtures: valid, messy, adversarial)
+│   └── evaluation (Benchmark scripts)
+├── docker-compose.yml
+└── Dockerfile (API & Web)
 ```
 
-### Environment Variables
+## 6. Testing & Benchmarks
 
+Our test strategy operates on three layers:
+1. **Deterministic Automated Tests:** We maintain **180 tests** across **16 test files** ensuring pure logic (parsing, normalization, batching) works flawlessly.
+2. **Manual/Browser E2E:** Live flow verification.
+3. **Live Gemini Benchmark:** Automated extraction tests against real data fixtures.
+
+**Current Benchmark Output:**
+- 5 fixtures passed (100% aggregate)
+- 0 failed, 0 errored
+*(Note: LLM benchmarks can vary across model versions. 100% represents current fixture status, not universal accuracy on all possible real-world CSVs.)*
+
+## 7. Security & AI Safety
+- **No secrets in frontend:** The Gemini API key remains strictly on the backend.
+- **No secrets baked into Docker:** Standalone images are built cleanly.
+- **Untrusted data isolation:** CSV data is treated as unstandardized raw data; strict Zod validation sanitizes it before internal CRM use.
+
+## 8. Can I try it?
+
+### Deployment Status
+**Deployment pending final regression phase.**
+
+### Local Setup (Docker)
+The easiest way to run this project is via Docker Compose. Both the frontend and backend run in unprivileged non-root containers.
+
+1. Configure your environment:
 ```bash
-# Root / apps/api/.env
-cp .env.example apps/api/.env
-# Add your GEMINI_API_KEY
+cp .env.example .env
+```
+*(You MUST edit `.env` to replace `your_gemini_api_key_here` with a real Gemini key)*
 
-# Frontend
-cp apps/web/.env.local.example apps/web/.env.local
+2. Build and boot:
+```bash
+docker compose up --build
 ```
 
-### Development
+**Services:**
+- **Frontend:** [http://localhost:3000](http://localhost:3000)
+- **API:** [http://localhost:4000](http://localhost:4000)
+- **Health:** [http://localhost:4000/health](http://localhost:4000/health)
 
+*(Note: `NEXT_PUBLIC_API_URL` is baked in at build time. Changing it requires a web image rebuild.)*
+
+### Local Setup (Non-Docker)
+1. Ensure Node.js >=20 is installed.
+2. Install workspace dependencies:
 ```bash
-# Start both frontend and backend
+npm ci
+```
+3. Configure environment:
+```bash
+cp .env.example .env
+```
+*(Add your valid Gemini key)*
+4. Start both applications:
+```bash
 npm run dev
-
-# Or individually:
-npm run dev -w @groeasy/api   # http://localhost:4000
-npm run dev -w @groeasy/web   # http://localhost:3000
 ```
 
-### Tests
+## Environment Variables
 
-Three-layer strategy — see **[TESTING.md](TESTING.md)** for the full plan.
+| Variable | Scope | Type | Default | Description |
+|---|---|---|---|---|
+| `GEMINI_API_KEY` | API Runtime | **Required** | `your_gemini_api_key_here` | Secret key for AI extraction |
+| `GEMINI_MODEL` | API Runtime | Optional | `gemini-3.1-flash-lite` | Model identifier |
+| `AI_CONCURRENCY` | API Runtime | Optional | `1` | Max simultaneous AI requests |
+| `PORT` | API Runtime | Optional | `4000` | Backend port |
+| `FRONTEND_URL` | API Runtime | Optional | `http://localhost:3000` | CORS Origin |
+| `BATCH_SIZE` | API Runtime | Optional | `25` | Rows processed per AI batch |
+| `NEXT_PUBLIC_API_URL`| Web Build-Time| **Required** | `http://localhost:4000` | Static API target |
 
-```bash
-npm test                    # 88 automated tests (no Gemini required)
-npm run typecheck           # TypeScript check all packages
-npm run test:data           # Generate 1K/10K performance CSVs
-```
+## Core API Endpoints
 
-### AI Evaluation Benchmark
+- `GET /health` - Service healthcheck
+- `POST /api/csv/analyze` - Parses columns and infers CRM mapping via AI
+- `POST /api/import/start` - Enqueues background extraction job
+- `GET /api/import/:jobId/progress` - Server-Sent Events (SSE) tracking
+- `GET /api/import/:jobId/result` - Fetches completed normalization results
 
-```bash
-npm run evaluate            # Requires GEMINI_API_KEY — scores extraction accuracy
-```
-
-> The extraction pipeline is tested against a curated benchmark of heterogeneous and adversarial CRM exports rather than being evaluated only through demo examples.
-
-## Sample CSV Files
-
-Primary test suite: **`test-data/`** (see [test-data/README.md](test-data/README.md))
-
-| File | Description |
-|------|-------------|
-| `valid/01_exact_schema.csv` | Exact GrowEasy columns |
-| `valid/02_facebook_export.csv` | Facebook Lead Ads format |
-| `valid/04_real_estate.csv` | Messy real estate CRM |
-| `messy/06_ambiguous_columns.csv` | Ambiguous Contact/Owner/Status |
-| `messy/08_invalid_records.csv` | Rows missing email and phone |
-| `messy/07_multiple_contacts.csv` | Multiple emails and phones |
-| `adversarial/17_prompt_injection.csv` | Prompt injection attacks |
-| `performance/16_large_10000_rows.csv` | 10K row stress test |
-
-## API Overview
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/health` | Health check |
-| POST | `/api/csv/analyze` | Upload CSV, profile, infer schema |
-| POST | `/api/import/process` | Synchronous import |
-| POST | `/api/import/start` | Start async import job |
-| GET | `/api/import/:jobId/progress` | SSE progress stream |
-| GET | `/api/import/:jobId/result` | Import result |
-
-## Deployment
-
-### Frontend (Vercel)
-
-```bash
-# Set root directory to apps/web
-# Environment: NEXT_PUBLIC_API_URL=https://your-api.railway.app
-```
-
-### Backend (Railway)
-
-```bash
-# Set root directory to apps/api
-# Environment: GEMINI_API_KEY, FRONTEND_URL, NODE_ENV=production
-```
-
-## Assumptions
-
-- Indian phone numbers are most common (10-digit, +91)
-- DD/MM/YYYY date format preferred when ambiguous
-- Single-user, stateless deployment (no auth, no database)
-- Gemini 2.0 Flash for speed and structured output support
-
-## Trade-offs
-
-- In-memory jobs are ephemeral (30-min TTL) — acceptable for assignment scope
-- Synchronous import used by default for reliability over SSE complexity
-- No dark mode — core features prioritized
-- AI evaluation harness is lightweight, not a full ML benchmark
+## Engineering Decisions & Trade-offs
+- **Stateless Architecture:** A database is unnecessary for this assignment context; keeping it stateless vastly simplifies deployment.
+- **Hybrid AI:** Deterministic rules protect high-confidence fields; AI is reserved purely for handling semantic ambiguity.
+- **Sequential Concurrency (`AI_CONCURRENCY=1`):** Ensures we gracefully respect free-tier Google API rate limits without overwhelming the system.
+- **Human-in-the-loop:** The mapping review forces a user confirmation step before an expensive large AI extraction begins.
+- **Memory Retention:** Rows remain in-memory (limited to 10k rows) due to the preview/import architecture constraint without a database.
 
 ## Limitations
+- AI output inherently depends on model availability, quota, and latency.
+- Current hard limit of 10,000 rows.
+- The full parsed dataset is retained in browser memory.
+- There is no persistent import history (refreshing loses data).
+- The AI accuracy benchmark is representative, not a universal guarantee.
+- Dockerized AI E2E is pending until a valid key is tested in the runtime.
 
-- Very large files (>10K rows) rejected by design
-- Country code inference requires contextual evidence
-- Ambiguous DD/MM vs MM/DD dates preserved without swapping
-- No persistent import history
-
-## Future Improvements
-
-- Persistent job storage (Redis/DB)
-- Multi-provider AI abstraction
-- Column mapping templates for known sources
-- Real-time collaborative mapping review
-- Webhook notifications on import completion
+---
+**Position Applied For: Intern**

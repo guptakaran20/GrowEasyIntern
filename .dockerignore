@@ -1,0 +1,13 @@
+node_modules
+dist
+.next
+coverage
+.git
+.vscode
+.idea
+*.log
+data/evaluation
+data/test-data
+!apps/api/.env.example
+!apps/web/.env.local.example
+!.env.example
