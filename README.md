@@ -135,7 +135,7 @@ Our test strategy operates on three layers:
 ## 8. Can I try it?
 
 ### Deployment Status
-**Deployment pending final regression phase.**
+**https://importlyai.vercel.app/**
 
 ### Local Setup (Docker)
 The easiest way to run this project is via Docker Compose. Both the frontend and backend run in unprivileged non-root containers.
@@ -210,4 +210,3 @@ npm run dev
 - Dockerized AI E2E is pending until a valid key is tested in the runtime.
 
 ---
-**Position Applied For: Intern**
