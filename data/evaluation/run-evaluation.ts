@@ -138,17 +138,17 @@ interface EvaluationArtifacts {
 
 async function main() {
 
-  const { parseCsvBuffer } = await import('../apps/api/src/services/csv/parser');
+  const { parseCsvBuffer } = await import('../../apps/api/src/services/csv/parser');
 
-  const { profileDataset, getSampleRows } = await import('../apps/api/src/services/csv/profiler');
+  const { profileDataset, getSampleRows } = await import('../../apps/api/src/services/csv/profiler');
 
-  const { inferSchema, extractBatch } = await import('../apps/api/src/services/ai/geminiService');
+  const { inferSchema, extractBatch } = await import('../../apps/api/src/services/ai/geminiService');
 
-  const { buildCrmRecordFromExtracted } = await import('../apps/api/src/services/import/recordBuilder');
+  const { buildCrmRecordFromExtracted } = await import('../../apps/api/src/services/import/recordBuilder');
 
-  const { collectContactCandidates } = await import('../apps/api/src/services/import/contactSelection');
+  const { collectContactCandidates } = await import('../../apps/api/src/services/import/contactSelection');
 
-  const { exportRecordsToCsv } = await import('../apps/api/src/utils/csvExport');
+  const { exportRecordsToCsv } = await import('../../apps/api/src/utils/csvExport');
 
   const {
 
@@ -164,9 +164,9 @@ async function main() {
 
 
 
-  const FIXTURES = join(ROOT, 'evaluation', 'fixtures');
+  const FIXTURES = join(ROOT, 'data', 'evaluation', 'fixtures');
 
-  const EXPECTED_PATH = join(ROOT, 'evaluation', 'expected', 'expected-results.json');
+  const EXPECTED_PATH = join(ROOT, 'data', 'evaluation', 'expected', 'expected-results.json');
 
 
 
@@ -728,7 +728,7 @@ async function main() {
 
   const { execSync } = await import('child_process');
 
-  execSync('npx tsx evaluation/setup-fixtures.ts', { stdio: 'inherit', cwd: ROOT });
+  execSync('npx tsx data/evaluation/setup-fixtures.ts', { stdio: 'inherit', cwd: ROOT });
 
 
 

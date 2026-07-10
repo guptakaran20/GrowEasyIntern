@@ -1,7 +1,0 @@
-Name,Email,Phone,Notes,Status
-Valid Lead,valid@email.com,9876543210,Good prospect,interested
-No Email,,9876543211,Has phone only,warm
-No Phone,noemail@example.com,,Email only,callback
-Empty Record,,,Nothing here,
-Bad Email,not-an-email,123,Invalid contact,bad lead
-Both Missing,,,No contact info,junk
