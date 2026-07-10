@@ -13,6 +13,7 @@ import { analyzeCsv, startImportJob, subscribeToProgress, getImportResult } from
 export type ImportState =
   | 'IDLE'
   | 'FILE_SELECTED'
+  | 'PARSING'
   | 'PREVIEW_READY'
   | 'ANALYZING'
   | 'MAPPING_REVIEW'
@@ -23,6 +24,7 @@ export type ImportState =
 export interface ImportContext {
   state: ImportState;
   file: File | null;
+  parseProgress: { bytesProcessed: number; totalBytes: number; rowsParsed: number } | null;
   preview: LocalPreview | null;
   analysis: AnalysisResponse | null;
   mappings: ConfirmedMapping[];
@@ -35,6 +37,7 @@ export interface ImportContext {
 const initialContext: ImportContext = {
   state: 'IDLE',
   file: null,
+  parseProgress: null,
   preview: null,
   analysis: null,
   mappings: [],
@@ -91,7 +94,23 @@ export function useImportFlow() {
     setCtx(initialContext);
   }, [cleanupSSE]);
 
-  const selectFile = useCallback((file: File, preview: LocalPreview) => {
+  const startParsing = useCallback((file: File) => {
+    runIdentityRef.current += 1;
+    setCtx({
+      ...initialContext,
+      state: 'PARSING',
+      file,
+    });
+    return runIdentityRef.current;
+  }, []);
+
+  const setParseProgress = useCallback((progress: { bytesProcessed: number; totalBytes: number; rowsParsed: number }, runId: number) => {
+    if (runIdentityRef.current !== runId) return;
+    setState({ parseProgress: progress });
+  }, [setState]);
+
+  const selectFile = useCallback((file: File, preview: LocalPreview, runId?: number) => {
+    if (runId !== undefined && runIdentityRef.current !== runId) return;
     setCtx({
       ...initialContext,
       state: 'PREVIEW_READY',
@@ -242,11 +261,13 @@ export function useImportFlow() {
 
   return {
     ...ctx,
+    reset,
+    startParsing,
+    setParseProgress,
     selectFile,
     runAnalysis,
     updateMapping,
     runImport,
-    reset,
     setState,
   };
 }

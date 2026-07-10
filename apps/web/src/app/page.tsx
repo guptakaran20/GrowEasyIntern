@@ -6,6 +6,7 @@ import { PreviewPanel } from '@/components/import/PreviewPanel';
 import { AnalysisProgress } from '@/components/import/AnalysisProgress';
 import { MappingReview } from '@/components/import/MappingReview';
 import { ImportProgressPanel } from '@/components/import/ImportProgress';
+import { ParseProgressPanel } from '@/components/import/ParseProgressPanel';
 import { ResultsPanel } from '@/components/import/ResultsPanel';
 import { useImportFlow } from '@/hooks/useImportFlow';
 import { parseCsvLocally } from '@/lib/csvParser';
@@ -16,8 +17,16 @@ export default function HomePage() {
 
   const handleFileSelected = async (file: File) => {
     try {
-      const preview = await parseCsvLocally(file);
-      flow.selectFile(file, preview);
+      const runId = flow.startParsing(file);
+      
+      const abortController = new AbortController();
+      
+      const preview = await parseCsvLocally(file, {
+        onProgress: (progress) => flow.setParseProgress(progress, runId),
+        signal: abortController.signal
+      });
+      
+      flow.selectFile(file, preview, runId);
     } catch (err) {
       flow.setState({
         state: 'ERROR',
@@ -27,6 +36,7 @@ export default function HomePage() {
   };
 
   const isIdle = flow.state === 'IDLE' || flow.state === 'ERROR';
+  const showParsing = flow.state === 'PARSING';
   const showPreview = flow.state === 'PREVIEW_READY' && flow.preview;
   const showAnalysis = flow.state === 'ANALYZING';
   const showMapping = flow.state === 'MAPPING_REVIEW' && flow.analysis;
@@ -144,6 +154,13 @@ export default function HomePage() {
           </div>
         ) : (
           <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+            {showParsing && (
+              <ParseProgressPanel
+                progress={flow.parseProgress}
+                fileName={flow.file?.name ?? 'File'}
+              />
+            )}
+
             {showPreview && (
               <PreviewPanel
                 preview={flow.preview!}
