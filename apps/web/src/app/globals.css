@@ -4,21 +4,83 @@
 
 @layer base {
   :root {
-    --color-primary: #f97316;
-    --color-primary-hover: #ea580c;
-    --color-accent: #14b8a6;
-    --color-accent-light: #ccfbf1;
-    --color-sidebar: #f8fafc;
-    --color-border: #e2e8f0;
-    --color-muted: #64748b;
-    --color-surface: #ffffff;
+    /* Base Semantic Tokens */
+    --color-page: #f8fafc;        /* slate-50 */
+    --color-surface: #ffffff;     /* white */
+    --color-surface-secondary: #f1f5f9; /* slate-100 */
+    --color-surface-hover: #f8fafc; /* slate-50 */
+    --color-border: #e2e8f0;      /* slate-200 */
+    --color-text-primary: #0f172a;/* slate-900 */
+    --color-text-muted: #64748b;  /* slate-500 */
+    --color-accent: #14b8a6;      /* teal-500 */
+    --color-focus-ring: #14b8a6;  /* teal-500 */
+    
+    /* Branding */
+    --color-primary: #f97316;     /* orange-500 */
+    --color-primary-hover: #ea580c; /* orange-600 */
+
+    /* Semantic Status - Success */
+    --color-success-bg: #f0fdfa;  /* teal-50 */
+    --color-success-text: #0f766e;/* teal-700 */
+    --color-success-border: #99f6e4; /* teal-200 */
+    
+    /* Semantic Status - Error */
+    --color-error-bg: #fef2f2;    /* red-50 */
+    --color-error-text: #b91c1c;  /* red-700 */
+    --color-error-border: #fca5a5;/* red-300 */
+    
+    /* Semantic Status - Warning */
+    --color-warning-bg: #fffbeb;  /* amber-50 */
+    --color-warning-text: #b45309;/* amber-700 */
+    --color-warning-border: #fde68a; /* amber-200 */
+
+    /* Semantic Status - Info */
+    --color-info-bg: #eff6ff;     /* blue-50 */
+    --color-info-text: #1d4ed8;   /* blue-700 */
+    --color-info-border: #bfdbfe; /* blue-200 */
+  }
+
+  :root.dark {
+    /* Base Semantic Tokens */
+    --color-page: #020617;        /* slate-950 */
+    --color-surface: #0f172a;     /* slate-900 */
+    --color-surface-secondary: #1e293b; /* slate-800 */
+    --color-surface-hover: #1e293b; /* slate-800 */
+    --color-border: #334155;      /* slate-700 */
+    --color-text-primary: #f8fafc;/* slate-50 */
+    --color-text-muted: #94a3b8;  /* slate-400 */
+    --color-accent: #14b8a6;      /* teal-500 */
+    --color-focus-ring: #14b8a6;  /* teal-500 */
+    
+    /* Branding */
+    --color-primary: #f97316;     
+    --color-primary-hover: #ea580c; 
+
+    /* Semantic Status - Success */
+    --color-success-bg: #042f2e;  /* teal-900 */
+    --color-success-text: #5eead4;/* teal-300 */
+    --color-success-border: #115e59; /* teal-800 */
+    
+    /* Semantic Status - Error */
+    --color-error-bg: #450a0a;    /* red-950 */
+    --color-error-text: #fca5a5;  /* red-300 */
+    --color-error-border: #7f1d1d;/* red-900 */
+    
+    /* Semantic Status - Warning */
+    --color-warning-bg: #451a03;  /* amber-950 */
+    --color-warning-text: #fcd34d;/* amber-300 */
+    --color-warning-border: #78350f; /* amber-900 */
+
+    /* Semantic Status - Info */
+    --color-info-bg: #172554;     /* blue-950 */
+    --color-info-text: #93c5fd;   /* blue-300 */
+    --color-info-border: #1e3a8a; /* blue-900 */
   }
 
   body {
-    @apply bg-slate-50 text-slate-900 antialiased;
+    @apply bg-page text-primary antialiased;
   }
 }
-
 @layer components {
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;

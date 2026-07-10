@@ -44,7 +44,7 @@ export default function HomePage() {
   const showResults = flow.state === 'COMPLETED' && flow.importResult;
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="flex min-h-screen flex-col bg-page">
       <Header />
       
       <main className="flex-1">
@@ -52,10 +52,10 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
             {/* Hero Section */}
             <div className="text-center max-w-3xl mx-auto mb-10">
-              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl mb-4">
+              <h1 className="text-4xl font-extrabold tracking-tight text-primary sm:text-5xl mb-4">
                 Turn messy CSV files into clean CRM data
               </h1>
-              <p className="text-lg text-slate-600 leading-relaxed">
+              <p className="text-lg text-muted leading-relaxed">
                 Upload lead exports from any source. AI understands the columns, maps the data, and converts it into a clean CRM-ready format.
               </p>
             </div>
@@ -65,9 +65,9 @@ export default function HomePage() {
               <UploadZone onFileSelected={handleFileSelected} />
               
               {flow.state === 'ERROR' && flow.error && (
-                <div className="mt-4 mx-auto max-w-2xl rounded-xl border border-red-200 bg-red-50 p-4 text-center shadow-sm">
-                  <p className="text-sm font-medium text-red-800">Error processing file</p>
-                  <p className="text-sm text-red-600">{flow.error}</p>
+                <div className="mt-4 mx-auto max-w-2xl rounded-xl border border-error-border bg-error-bg p-4 text-center shadow-sm">
+                  <p className="text-sm font-medium text-error-text">Error processing file</p>
+                  <p className="text-sm text-error-text opacity-90">{flow.error}</p>
                 </div>
               )}
             </div>
@@ -75,79 +75,79 @@ export default function HomePage() {
             {/* Capability Strip */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-4 max-w-5xl mx-auto mb-16">
               <div className="flex flex-col items-center text-center p-4">
-                <div className="mb-3 rounded-full bg-teal-100 p-3 text-teal-600">
+                <div className="mb-3 rounded-full bg-teal-100 p-3 text-teal-600 dark:bg-teal-900/50 dark:text-teal-400">
                   <ShieldCheck className="h-6 w-6" />
                 </div>
-                <h3 className="font-semibold text-slate-900 text-sm">Local Preview</h3>
-                <p className="mt-1 text-sm text-slate-500">Previewed locally before AI analysis</p>
+                <h3 className="font-semibold text-primary text-sm">Local Preview</h3>
+                <p className="mt-1 text-sm text-muted">Previewed locally before AI analysis</p>
               </div>
               <div className="flex flex-col items-center text-center p-4">
-                <div className="mb-3 rounded-full bg-orange-100 p-3 text-orange-600">
+                <div className="mb-3 rounded-full bg-orange-100 p-3 text-orange-600 dark:bg-orange-900/50 dark:text-orange-400">
                   <Sparkles className="h-6 w-6" />
                 </div>
-                <h3 className="font-semibold text-slate-900 text-sm">Intelligent Mapping</h3>
-                <p className="mt-1 text-sm text-slate-500">AI automatically aligns your columns</p>
+                <h3 className="font-semibold text-primary text-sm">Intelligent Mapping</h3>
+                <p className="mt-1 text-sm text-muted">AI automatically aligns your columns</p>
               </div>
               <div className="flex flex-col items-center text-center p-4">
-                <div className="mb-3 rounded-full bg-blue-100 p-3 text-blue-600">
+                <div className="mb-3 rounded-full bg-blue-100 p-3 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400">
                   <CheckCircle2 className="h-6 w-6" />
                 </div>
-                <h3 className="font-semibold text-slate-900 text-sm">Structured Validation</h3>
-                <p className="mt-1 text-sm text-slate-500">Ensures phones and emails are valid</p>
+                <h3 className="font-semibold text-primary text-sm">Structured Validation</h3>
+                <p className="mt-1 text-sm text-muted">Ensures phones and emails are valid</p>
               </div>
               <div className="flex flex-col items-center text-center p-4">
-                <div className="mb-3 rounded-full bg-purple-100 p-3 text-purple-600">
+                <div className="mb-3 rounded-full bg-purple-100 p-3 text-purple-600 dark:bg-purple-900/50 dark:text-purple-400">
                   <Download className="h-6 w-6" />
                 </div>
-                <h3 className="font-semibold text-slate-900 text-sm">CRM-Ready Export</h3>
-                <p className="mt-1 text-sm text-slate-500">Download perfectly formatted data</p>
+                <h3 className="font-semibold text-primary text-sm">CRM-Ready Export</h3>
+                <p className="mt-1 text-sm text-muted">Download perfectly formatted data</p>
               </div>
             </div>
 
             {/* How It Works & Supported Inputs */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
               <div>
-                <h2 className="text-xl font-semibold text-slate-900 mb-6">How it works</h2>
+                <h2 className="text-xl font-semibold text-primary mb-6">How it works</h2>
                 <div className="space-y-6">
                   <div className="flex gap-4">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-200 text-sm font-medium text-slate-700">1</div>
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-secondary text-sm font-medium text-primary">1</div>
                     <div>
-                      <h4 className="font-medium text-slate-900">Upload & Preview</h4>
-                      <p className="text-sm text-slate-500 mt-1">Select your raw CSV export. We&apos;ll preview it locally.</p>
+                      <h4 className="font-medium text-primary">Upload & Preview</h4>
+                      <p className="text-sm text-muted mt-1">Select your raw CSV export. We&apos;ll preview it locally.</p>
                     </div>
                   </div>
                   <div className="flex gap-4">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-200 text-sm font-medium text-slate-700">2</div>
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-secondary text-sm font-medium text-primary">2</div>
                     <div>
-                      <h4 className="font-medium text-slate-900">Review AI Mapping</h4>
-                      <p className="text-sm text-slate-500 mt-1">Our AI analyzes your headers and data to suggest the best CRM fields.</p>
+                      <h4 className="font-medium text-primary">Review AI Mapping</h4>
+                      <p className="text-sm text-muted mt-1">Our AI analyzes your headers and data to suggest the best CRM fields.</p>
                     </div>
                   </div>
                   <div className="flex gap-4">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-200 text-sm font-medium text-slate-700">3</div>
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-secondary text-sm font-medium text-primary">3</div>
                     <div>
-                      <h4 className="font-medium text-slate-900">Export Clean Data</h4>
-                      <p className="text-sm text-slate-500 mt-1">Process your rows and download a unified CSV ready for import.</p>
+                      <h4 className="font-medium text-primary">Export Clean Data</h4>
+                      <p className="text-sm text-muted mt-1">Process your rows and download a unified CSV ready for import.</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
-                <h2 className="text-xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
-                  <FileSpreadsheet className="h-5 w-5 text-slate-400" />
+              <div className="bg-surface p-8 rounded-2xl border border-border shadow-sm">
+                <h2 className="text-xl font-semibold text-primary mb-6 flex items-center gap-2">
+                  <FileSpreadsheet className="h-5 w-5 text-muted" />
                   Supported Inputs
                 </h2>
-                <p className="text-sm text-slate-600 mb-6">
+                <p className="text-sm text-muted mb-6">
                   Designed to handle messy, unstandardized data formats from any platform:
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-1 text-sm font-medium text-slate-700 border border-slate-200">Facebook Leads</span>
-                  <span className="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-1 text-sm font-medium text-slate-700 border border-slate-200">Google Ads</span>
-                  <span className="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-1 text-sm font-medium text-slate-700 border border-slate-200">Excel / Sheets</span>
-                  <span className="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-1 text-sm font-medium text-slate-700 border border-slate-200">Real Estate CRM</span>
-                  <span className="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-1 text-sm font-medium text-slate-700 border border-slate-200">Agency Exports</span>
-                  <span className="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-1 text-sm font-medium text-slate-700 border border-slate-200">Custom CSV</span>
+                  <span className="inline-flex items-center rounded-md bg-surface-secondary px-2.5 py-1 text-sm font-medium text-primary border border-border">Facebook Leads</span>
+                  <span className="inline-flex items-center rounded-md bg-surface-secondary px-2.5 py-1 text-sm font-medium text-primary border border-border">Google Ads</span>
+                  <span className="inline-flex items-center rounded-md bg-surface-secondary px-2.5 py-1 text-sm font-medium text-primary border border-border">Excel / Sheets</span>
+                  <span className="inline-flex items-center rounded-md bg-surface-secondary px-2.5 py-1 text-sm font-medium text-primary border border-border">Real Estate CRM</span>
+                  <span className="inline-flex items-center rounded-md bg-surface-secondary px-2.5 py-1 text-sm font-medium text-primary border border-border">Agency Exports</span>
+                  <span className="inline-flex items-center rounded-md bg-surface-secondary px-2.5 py-1 text-sm font-medium text-primary border border-border">Custom CSV</span>
                 </div>
               </div>
             </div>

@@ -56,18 +56,18 @@ export function UploadZone({ onFileSelected }: UploadZoneProps) {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto rounded-xl bg-white shadow-sm border border-slate-200">
+    <div className="w-full max-w-2xl mx-auto rounded-xl bg-surface shadow-sm border border-border">
       <div className="px-6 py-8">
         <div
           className={cn(
             'relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-12 transition-colors cursor-pointer',
             dropState === 'dragging' || dropState === 'hover'
-              ? 'border-teal-400 bg-teal-50'
+              ? 'border-success-border bg-success-bg'
               : dropState === 'rejected'
-                ? 'border-red-300 bg-red-50'
+                ? 'border-error-border bg-error-bg'
                 : dropState === 'selected'
-                  ? 'border-teal-400 bg-teal-50/50'
-                  : 'border-slate-200 bg-slate-50 hover:border-slate-300 hover:bg-slate-100',
+                  ? 'border-success-border bg-success-bg/50'
+                  : 'border-border bg-surface-secondary hover:border-muted hover:bg-surface-hover',
           )}
           onDragOver={(e) => {
             e.preventDefault();
@@ -81,19 +81,19 @@ export function UploadZone({ onFileSelected }: UploadZoneProps) {
         >
           {selectedFile ? (
             <div className="flex flex-col items-center gap-2 text-center">
-              <FileText className="h-12 w-12 text-teal-500" />
-              <p className="text-base font-medium text-slate-900">{selectedFile.name}</p>
-              <p className="text-sm text-slate-500">{formatFileSize(selectedFile.size)}</p>
+              <FileText className="h-12 w-12 text-accent" />
+              <p className="text-base font-medium text-primary">{selectedFile.name}</p>
+              <p className="text-sm text-muted">{formatFileSize(selectedFile.size)}</p>
             </div>
           ) : (
             <div className="flex flex-col items-center text-center">
-              <div className="mb-4 rounded-full bg-white p-3 shadow-sm border border-slate-100">
-                <Upload className="h-8 w-8 text-slate-400" />
+              <div className="mb-4 rounded-full bg-surface p-3 shadow-sm border border-border">
+                <Upload className="h-8 w-8 text-muted" />
               </div>
-              <p className="text-base font-medium text-slate-900">
+              <p className="text-base font-medium text-primary">
                 Click or drag CSV file here
               </p>
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-muted">
                 Intelligent mapping to GrowEasy CRM
               </p>
             </div>
@@ -111,7 +111,7 @@ export function UploadZone({ onFileSelected }: UploadZoneProps) {
         </div>
 
         {error && (
-          <div className="mt-4 flex items-center justify-center gap-2 text-sm text-red-600 bg-red-50 p-3 rounded-lg">
+          <div className="mt-4 flex items-center justify-center gap-2 text-sm text-error-text bg-error-bg p-3 rounded-lg border border-error-border">
             <AlertCircle className="h-4 w-4 shrink-0" />
             {error}
           </div>
@@ -119,12 +119,12 @@ export function UploadZone({ onFileSelected }: UploadZoneProps) {
 
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-col items-start">
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-muted">
               Previewed locally before AI analysis. Max size: {Math.round(LIMITS.MAX_FILE_SIZE_BYTES / 1024 / 1024)}MB.
             </p>
             <button
               onClick={(e) => { e.stopPropagation(); handleDownloadTemplate(); }}
-              className="mt-1 text-xs font-medium text-teal-600 hover:text-teal-700"
+              className="mt-1 text-xs font-medium text-accent hover:opacity-80"
             >
               Download sample template
             </button>

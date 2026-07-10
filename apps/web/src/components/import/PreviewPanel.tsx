@@ -25,7 +25,7 @@ export function PreviewTable({ preview, maxRows = LIMITS.MAX_PREVIEW_ROWS }: Pre
   });
 
   return (
-    <div className="overflow-hidden rounded-lg border border-slate-200">
+    <div className="overflow-hidden rounded-lg border border-border">
       <div className="overflow-x-auto">
         <div
           ref={parentRef}
@@ -33,15 +33,15 @@ export function PreviewTable({ preview, maxRows = LIMITS.MAX_PREVIEW_ROWS }: Pre
           style={{ contain: 'strict' }}
         >
           <table className="w-full min-w-max text-sm">
-            <thead className="sticky top-0 z-10 bg-slate-50">
+            <thead className="sticky top-0 z-10 bg-surface-secondary">
               <tr>
-                <th className="whitespace-nowrap border-b border-r border-slate-200 px-3 py-2 text-left text-xs font-medium text-slate-500">
+                <th className="whitespace-nowrap border-b border-r border-border px-3 py-2 text-left text-xs font-medium text-muted">
                   #
                 </th>
                 {headers.map((header) => (
                   <th
                     key={header}
-                    className="whitespace-nowrap border-b border-r border-slate-200 px-3 py-2 text-left text-xs font-medium text-slate-700"
+                    className="whitespace-nowrap border-b border-r border-border px-3 py-2 text-left text-xs font-medium text-primary"
                   >
                     {header}
                   </th>
@@ -54,18 +54,18 @@ export function PreviewTable({ preview, maxRows = LIMITS.MAX_PREVIEW_ROWS }: Pre
                 return (
                   <tr
                     key={virtualRow.index}
-                    className="hover:bg-slate-50"
+                    className="hover:bg-surface-hover"
                     style={{
                       height: `${virtualRow.size}px`,
                     }}
                   >
-                    <td className="whitespace-nowrap border-b border-r border-slate-100 px-3 py-2 text-xs text-slate-400">
+                    <td className="whitespace-nowrap border-b border-r border-border/50 px-3 py-2 text-xs text-muted">
                       {virtualRow.index + 1}
                     </td>
                     {headers.map((header) => (
                       <td
                         key={header}
-                        className="max-w-[200px] truncate border-b border-r border-slate-100 px-3 py-2 text-xs text-slate-700"
+                        className="max-w-[200px] truncate border-b border-r border-border/50 px-3 py-2 text-xs text-primary"
                         title={row[header] ?? ''}
                       >
                         {row[header] ?? ''}
@@ -79,7 +79,7 @@ export function PreviewTable({ preview, maxRows = LIMITS.MAX_PREVIEW_ROWS }: Pre
         </div>
       </div>
       {preview.rowCount > maxRows && (
-        <div className="border-t border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-500">
+        <div className="border-t border-border bg-surface-secondary px-3 py-2 text-xs text-muted">
           Showing {maxRows} of {preview.rowCount} rows
         </div>
       )}
@@ -105,15 +105,15 @@ export function PreviewPanel({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" />
-      <div className="relative flex max-h-[90vh] w-full max-w-4xl flex-col rounded-xl bg-white shadow-xl">
-        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+      <div className="relative flex max-h-[90vh] w-full max-w-4xl flex-col rounded-xl bg-surface shadow-xl border border-border">
+        <div className="flex items-center justify-between border-b border-border px-6 py-4">
           <div>
-            <h2 className="text-lg font-semibold text-slate-900">CSV Preview</h2>
-            <p className="text-xs text-slate-500">
+            <h2 className="text-lg font-semibold text-primary">CSV Preview</h2>
+            <p className="text-xs text-muted">
               Your CSV has only been parsed locally. Confirm to securely analyze its structure with AI.
             </p>
           </div>
-          <button onClick={onCancel} className="rounded-lg p-1 text-slate-400 hover:bg-slate-100">
+          <button onClick={onCancel} className="rounded-lg p-1 text-muted hover:bg-surface-secondary">
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -121,27 +121,27 @@ export function PreviewPanel({
         <div className="flex-1 overflow-y-auto px-6 py-4">
           <div className="mb-4 flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2">
-              <FileText className="h-5 w-5 text-teal-500" />
-              <span className="text-sm font-medium">{preview.fileName}</span>
+              <FileText className="h-5 w-5 text-accent" />
+              <span className="text-sm font-medium text-primary">{preview.fileName}</span>
             </div>
-            <span className="text-xs text-slate-500">{formatFileSize(preview.fileSize)}</span>
-            <span className="text-xs text-slate-500">{preview.rowCount} rows</span>
-            <span className="text-xs text-slate-500">{preview.headers.length} columns</span>
+            <span className="text-xs text-muted">{formatFileSize(preview.fileSize)}</span>
+            <span className="text-xs text-muted">{preview.rowCount} rows</span>
+            <span className="text-xs text-muted">{preview.headers.length} columns</span>
             <button
               onClick={onRemove}
-              className="text-xs font-medium text-red-500 hover:text-red-600"
+              className="text-xs font-medium text-error-text hover:opacity-80"
             >
               Remove file
             </button>
           </div>
 
           <div className="mb-2">
-            <p className="text-xs font-medium text-slate-500">Detected columns</p>
+            <p className="text-xs font-medium text-muted">Detected columns</p>
             <div className="mt-1 flex flex-wrap gap-1">
               {preview.headers.map((h) => (
                 <span
                   key={h}
-                  className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600"
+                  className="rounded-full bg-surface-secondary border border-border px-2 py-0.5 text-xs text-primary"
                 >
                   {h}
                 </span>
@@ -152,7 +152,7 @@ export function PreviewPanel({
           <PreviewTable preview={preview} />
         </div>
 
-        <div className="flex justify-end gap-3 border-t border-slate-200 px-6 py-4">
+        <div className="flex justify-end gap-3 border-t border-border px-6 py-4">
           <button className="btn-secondary" onClick={onCancel}>
             Cancel
           </button>

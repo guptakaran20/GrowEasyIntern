@@ -17,21 +17,21 @@ export function ParseProgressPanel({ progress, fileName }: ParseProgressPanelPro
     : 0;
 
   return (
-    <div className="w-full max-w-2xl mx-auto rounded-xl bg-white shadow-sm border border-slate-200 p-8 text-center">
-      <Loader2 className="mx-auto h-10 w-10 animate-spin text-teal-500 mb-4" />
-      <h2 className="text-xl font-semibold text-slate-900">Parsing file...</h2>
-      <p className="mt-1 text-sm text-slate-500 truncate max-w-md mx-auto" title={fileName}>
+    <div className="w-full max-w-2xl mx-auto rounded-xl bg-surface shadow-sm border border-border p-8 text-center">
+      <Loader2 className="mx-auto h-10 w-10 animate-spin text-accent mb-4" />
+      <h2 className="text-xl font-semibold text-primary">Parsing file...</h2>
+      <p className="mt-1 text-sm text-muted truncate max-w-md mx-auto" title={fileName}>
         {fileName}
       </p>
 
       <div className="mt-8 max-w-md mx-auto">
-        <div className="mb-2 flex justify-between text-sm text-slate-600">
+        <div className="mb-2 flex justify-between text-sm text-muted">
           <span>Rows processed: {progress?.rowsParsed ?? 0}</span>
           <span className="font-medium">{percent}%</span>
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-slate-100">
+        <div className="h-2 overflow-hidden rounded-full bg-surface-secondary">
           <div
-            className="h-full rounded-full bg-teal-500 transition-all duration-300"
+            className="h-full rounded-full bg-accent transition-all duration-300"
             style={{ width: `${percent}%` }}
             role="progressbar"
             aria-valuenow={percent}

@@ -49,12 +49,12 @@ export function ResultsPanel({ result, onNewImport }: ResultsPanelProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" />
-      <div className="relative flex max-h-[90vh] w-full max-w-6xl flex-col rounded-xl bg-white shadow-xl">
-        <div className="border-b border-slate-200 px-6 py-4">
+      <div className="relative flex max-h-[90vh] w-full max-w-6xl flex-col rounded-xl bg-surface shadow-xl border border-border">
+        <div className="border-b border-border px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-slate-900">Import Complete</h2>
-              <p className="text-xs text-slate-500">{result.file_name}</p>
+              <h2 className="text-lg font-semibold text-primary">Import Complete</h2>
+              <p className="text-xs text-muted">{result.file_name}</p>
             </div>
             <div className="flex gap-2">
               <button className="btn-secondary" onClick={handleExportImported}>
@@ -78,7 +78,7 @@ export function ResultsPanel({ result, onNewImport }: ResultsPanelProps) {
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-slate-200 px-6">
+        <div className="border-b border-border px-6">
           <div className="flex gap-4">
             {tabs.map((tab) => (
               <button
@@ -87,8 +87,8 @@ export function ResultsPanel({ result, onNewImport }: ResultsPanelProps) {
                 className={cn(
                   'border-b-2 px-1 py-3 text-sm font-medium transition-colors',
                   activeTab === tab.id
-                    ? 'border-teal-500 text-teal-700'
-                    : 'border-transparent text-slate-500 hover:text-slate-700',
+                    ? 'border-accent text-accent'
+                    : 'border-transparent text-muted hover:text-primary',
                 )}
               >
                 {tab.label} ({tab.count})
@@ -99,15 +99,15 @@ export function ResultsPanel({ result, onNewImport }: ResultsPanelProps) {
 
         {/* Search */}
         {activeTab !== 'mapping' && (
-          <div className="border-b border-slate-200 px-6 py-3">
+          <div className="border-b border-border px-6 py-3">
             <div className="relative max-w-sm">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted opacity-70" />
               <input
                 type="text"
                 placeholder="Search records..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 py-2 pl-9 pr-3 text-sm focus:border-teal-400 focus:outline-none focus:ring-1 focus:ring-teal-400"
+                className="w-full rounded-lg border border-border bg-surface py-2 pl-9 pr-3 text-sm focus:border-focus-ring focus:outline-none focus:ring-1 focus:ring-focus-ring text-primary"
               />
             </div>
           </div>
@@ -143,14 +143,14 @@ function SummaryCard({
   variant?: 'success' | 'warning';
 }) {
   return (
-    <div className="rounded-lg border border-slate-200 px-4 py-3">
-      <p className="text-xs text-slate-500">{label}</p>
+    <div className="rounded-lg border border-border px-4 py-3">
+      <p className="text-xs text-muted">{label}</p>
       <p
         className={cn(
           'mt-1 text-xl font-semibold',
-          variant === 'success' && 'text-teal-600',
-          variant === 'warning' && 'text-amber-600',
-          !variant && 'text-slate-900',
+          variant === 'success' && 'text-success-text',
+          variant === 'warning' && 'text-warning-text',
+          !variant && 'text-primary',
         )}
       >
         {value}
@@ -183,17 +183,17 @@ function ImportedTable({
   });
 
   if (filtered.length === 0) {
-    return <p className="text-sm text-slate-500">No imported records found.</p>;
+    return <p className="text-sm text-muted">No imported records found.</p>;
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-slate-200">
+    <div className="overflow-x-auto rounded-lg border border-border">
       <div ref={parentRef} className="max-h-[400px] overflow-y-auto">
         <table className="w-full min-w-max text-sm">
-        <thead className="sticky top-0 bg-slate-50">
+        <thead className="sticky top-0 bg-surface-secondary">
           <tr>
             {displayFields.map((f) => (
-              <th key={f} className="whitespace-nowrap border-b border-r border-slate-200 px-3 py-2 text-left text-xs font-medium text-slate-600">
+              <th key={f} className="whitespace-nowrap border-b border-r border-border px-3 py-2 text-left text-xs font-medium text-muted">
                 {CRM_FIELD_LABELS[f]}
               </th>
             ))}
@@ -203,9 +203,9 @@ function ImportedTable({
           {virtualizer.getVirtualItems().map((vRow) => {
             const record = filtered[vRow.index];
             return (
-              <tr key={vRow.index} className="hover:bg-slate-50">
+              <tr key={vRow.index} className="hover:bg-surface-hover">
                 {displayFields.map((f) => (
-                  <td key={f} className="max-w-[180px] truncate border-b border-r border-slate-100 px-3 py-2 text-xs text-slate-700">
+                  <td key={f} className="max-w-[180px] truncate border-b border-r border-border/50 px-3 py-2 text-xs text-primary">
                     {record[f]}
                   </td>
                 ))}
@@ -240,8 +240,8 @@ function SkippedTable({
 
   if (filtered.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-2 py-8 text-slate-500">
-        <CheckCircle2 className="h-8 w-8 text-teal-500" />
+      <div className="flex flex-col items-center gap-2 py-8 text-muted">
+        <CheckCircle2 className="h-8 w-8 text-success-text" />
         <p className="text-sm">No records were skipped</p>
       </div>
     );
@@ -255,26 +255,26 @@ function SkippedTable({
           Export Skipped
         </button>
       </div>
-      <div className="max-h-[400px] overflow-auto rounded-lg border border-slate-200">
+      <div className="max-h-[400px] overflow-auto rounded-lg border border-border">
         <table className="w-full text-sm">
-          <thead className="sticky top-0 bg-slate-50">
+          <thead className="sticky top-0 bg-surface-secondary">
             <tr>
-              <th className="border-b border-r border-slate-200 px-3 py-2 text-left text-xs font-medium text-slate-600">Row</th>
-              <th className="border-b border-r border-slate-200 px-3 py-2 text-left text-xs font-medium text-slate-600">Reason</th>
-              <th className="border-b border-slate-200 px-3 py-2 text-left text-xs font-medium text-slate-600">Source Data</th>
+              <th className="border-b border-r border-border px-3 py-2 text-left text-xs font-medium text-muted">Row</th>
+              <th className="border-b border-r border-border px-3 py-2 text-left text-xs font-medium text-muted">Reason</th>
+              <th className="border-b border-border px-3 py-2 text-left text-xs font-medium text-muted">Source Data</th>
             </tr>
           </thead>
           <tbody>
             {filtered.map((r) => (
-              <tr key={r.row_number} className="hover:bg-slate-50">
-                <td className="border-b border-r border-slate-100 px-3 py-2 text-xs text-slate-500">{r.row_number}</td>
-                <td className="border-b border-r border-slate-100 px-3 py-2 text-xs text-red-600">
+              <tr key={r.row_number} className="hover:bg-surface-hover">
+                <td className="border-b border-r border-border/50 px-3 py-2 text-xs text-muted">{r.row_number}</td>
+                <td className="border-b border-r border-border/50 px-3 py-2 text-xs text-error-text">
                   <div className="flex items-center gap-1">
                     <XCircle className="h-3 w-3 shrink-0" />
                     {r.reason}
                   </div>
                 </td>
-                <td className="max-w-[300px] truncate border-b border-slate-100 px-3 py-2 text-xs text-slate-600">
+                <td className="max-w-[300px] truncate border-b border-border/50 px-3 py-2 text-xs text-muted">
                   {Object.entries(r.original_record)
                     .filter(([, v]) => v.trim())
                     .map(([k, v]) => `${k}: ${v}`)
@@ -297,7 +297,7 @@ function MappingSummary({
   return (
     <table className="w-full text-sm">
       <thead>
-        <tr className="border-b border-slate-200 text-left text-xs font-medium text-slate-500">
+        <tr className="border-b border-border text-left text-xs font-medium text-muted">
           <th className="pb-2 pr-4">Source Column</th>
           <th className="pb-2">CRM Field</th>
         </tr>
@@ -306,9 +306,9 @@ function MappingSummary({
         {mappings
           .filter((m) => m.target_field !== '__ignore__')
           .map((m) => (
-            <tr key={m.source_column} className="border-b border-slate-100">
-              <td className="py-2 pr-4 font-medium text-slate-900">{m.source_column}</td>
-              <td className="py-2 text-slate-600">
+            <tr key={m.source_column} className="border-b border-border/50">
+              <td className="py-2 pr-4 font-medium text-primary">{m.source_column}</td>
+              <td className="py-2 text-muted">
                 {CRM_FIELD_LABELS[m.target_field as CrmField] ?? m.target_field}
               </td>
             </tr>

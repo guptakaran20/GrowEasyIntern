@@ -28,9 +28,9 @@ function ConfidenceBadge({ confidence }: { confidence: number }) {
   const tier = getConfidenceTier(confidence);
   const labels = { high: 'High confidence', medium: 'Medium confidence', low: 'Needs review' };
   const colors = {
-    high: 'bg-teal-50 text-teal-700 border-teal-200',
-    medium: 'bg-amber-50 text-amber-700 border-amber-200',
-    low: 'bg-red-50 text-red-700 border-red-200',
+    high: 'bg-success-bg text-success-text border-success-border',
+    medium: 'bg-warning-bg text-warning-text border-warning-border',
+    low: 'bg-error-bg text-error-text border-error-border',
   };
 
   return (
@@ -61,24 +61,24 @@ export function MappingReview({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" />
-      <div className="relative flex max-h-[90vh] w-full max-w-5xl flex-col rounded-xl bg-white shadow-xl">
-        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+      <div className="relative flex max-h-[90vh] w-full max-w-5xl flex-col rounded-xl bg-surface shadow-xl border border-border">
+        <div className="flex items-center justify-between border-b border-border px-6 py-4">
           <div>
-            <h2 className="text-lg font-semibold text-slate-900">Review Field Mapping</h2>
-            <p className="text-xs text-slate-500">
+            <h2 className="text-lg font-semibold text-primary">Review Field Mapping</h2>
+            <p className="text-xs text-muted">
               AI-inferred mappings — adjust any field before importing
             </p>
           </div>
-          <button onClick={onCancel} className="rounded-lg p-1 text-slate-400 hover:bg-slate-100">
+          <button onClick={onCancel} className="rounded-lg p-1 text-muted hover:bg-surface-secondary">
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {warnings.length > 0 && (
-          <div className="border-b border-amber-200 bg-amber-50 px-6 py-3">
+          <div className="border-b border-warning-border bg-warning-bg px-6 py-3">
             <div className="flex items-start gap-2">
-              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
-              <ul className="space-y-1 text-sm text-amber-800">
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning-text" />
+              <ul className="space-y-1 text-sm text-warning-text opacity-90">
                 {warnings.map((w, i) => (
                   <li key={i}>{w}</li>
                 ))}
@@ -90,7 +90,7 @@ export function MappingReview({
         <div className="flex-1 overflow-y-auto px-6 py-4">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-slate-200 text-left text-xs font-medium text-slate-500">
+              <tr className="border-b border-border text-left text-xs font-medium text-muted">
                 <th className="pb-2 pr-4">Source Column</th>
                 <th className="pb-2 pr-4">Sample Values</th>
                 <th className="pb-2 pr-4">Mapped CRM Field</th>
@@ -104,12 +104,12 @@ export function MappingReview({
                 const currentTarget = mappingLookup.get(col) ?? IGNORE_FIELD;
 
                 return (
-                  <tr key={col} className="border-b border-slate-100">
-                    <td className="py-3 pr-4 font-medium text-slate-900">{col}</td>
+                  <tr key={col} className="border-b border-border/50">
+                    <td className="py-3 pr-4 font-medium text-primary">{col}</td>
                     <td className="max-w-[200px] py-3 pr-4">
                       <div className="space-y-0.5">
                         {(profile?.representative_values ?? []).slice(0, 2).map((v, i) => (
-                          <p key={i} className="truncate text-xs text-slate-500" title={v}>
+                          <p key={i} className="truncate text-xs text-muted" title={v}>
                             {v}
                           </p>
                         ))}
@@ -124,7 +124,7 @@ export function MappingReview({
                             e.target.value as ConfirmedMapping['target_field'],
                           )
                         }
-                        className="w-full rounded-lg border border-slate-200 px-2 py-1.5 text-sm focus:border-teal-400 focus:outline-none focus:ring-1 focus:ring-teal-400"
+                        className="w-full rounded-lg border border-border bg-surface px-2 py-1.5 text-sm focus:border-focus-ring focus:outline-none focus:ring-1 focus:ring-focus-ring text-primary"
                       >
                         {TARGET_OPTIONS.map((opt) => (
                           <option key={opt.value} value={opt.value}>
@@ -137,7 +137,7 @@ export function MappingReview({
                       {inference ? (
                         <ConfidenceBadge confidence={inference.confidence} />
                       ) : (
-                        <span className="text-xs text-slate-400">Unmapped</span>
+                        <span className="text-xs text-muted">Unmapped</span>
                       )}
                     </td>
                   </tr>
@@ -147,7 +147,7 @@ export function MappingReview({
           </table>
         </div>
 
-        <div className="flex justify-end gap-3 border-t border-slate-200 px-6 py-4">
+        <div className="flex justify-end gap-3 border-t border-border px-6 py-4">
           <button className="btn-secondary" onClick={onCancel}>
             Cancel
           </button>

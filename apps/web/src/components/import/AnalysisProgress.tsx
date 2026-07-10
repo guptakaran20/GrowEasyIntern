@@ -21,11 +21,11 @@ export function AnalysisProgress({ currentStage }: AnalysisProgressProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" />
-      <div className="relative w-full max-w-md rounded-xl bg-white p-8 shadow-xl">
+      <div className="relative w-full max-w-md rounded-xl bg-surface p-8 shadow-xl border border-border">
         <div className="mb-6 text-center">
-          <Loader2 className="mx-auto h-10 w-10 animate-spin text-teal-500" />
-          <h2 className="mt-4 text-lg font-semibold text-slate-900">Analyzing CSV</h2>
-          <p className="mt-1 text-sm text-slate-500">
+          <Loader2 className="mx-auto h-10 w-10 animate-spin text-accent" />
+          <h2 className="mt-4 text-lg font-semibold text-primary">Analyzing CSV</h2>
+          <p className="mt-1 text-sm text-muted">
             AI is inferring column mappings for your data
           </p>
         </div>
@@ -41,15 +41,15 @@ export function AnalysisProgress({ currentStage }: AnalysisProgressProps) {
                 key={stage}
                 className={cn(
                   'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors',
-                  isCurrent && 'bg-teal-50 text-teal-700',
-                  isComplete && 'text-slate-600',
-                  isPending && 'text-slate-400',
+                  isCurrent && 'bg-success-bg text-success-text',
+                  isComplete && 'text-primary',
+                  isPending && 'text-muted',
                 )}
               >
                 {isComplete ? (
-                  <CheckCircle2 className="h-4 w-4 text-teal-500" />
+                  <CheckCircle2 className="h-4 w-4 text-accent" />
                 ) : isCurrent ? (
-                  <Loader2 className="h-4 w-4 animate-spin text-teal-500" />
+                  <Loader2 className="h-4 w-4 animate-spin text-accent" />
                 ) : (
                   <Circle className="h-4 w-4" />
                 )}

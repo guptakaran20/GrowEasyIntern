@@ -70,18 +70,18 @@ export function UploadModal({ open, onClose, onFileSelected }: UploadModalProps)
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" onClick={handleClose} />
       <div
-        className="relative w-full max-w-lg rounded-xl bg-white shadow-xl"
+        className="relative w-full max-w-lg rounded-xl bg-surface shadow-xl border border-border"
         role="dialog"
         aria-labelledby="upload-title"
         aria-modal="true"
       >
-        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-          <h2 id="upload-title" className="text-lg font-semibold text-slate-900">
+        <div className="flex items-center justify-between border-b border-border px-6 py-4">
+          <h2 id="upload-title" className="text-lg font-semibold text-primary">
             Import Leads via CSV
           </h2>
           <button
             onClick={handleClose}
-            className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+            className="rounded-lg p-1 text-muted hover:bg-surface-secondary hover:text-primary"
             aria-label="Close"
           >
             <X className="h-5 w-5" />
@@ -89,21 +89,21 @@ export function UploadModal({ open, onClose, onFileSelected }: UploadModalProps)
         </div>
 
         <div className="px-6 py-5">
-          <p className="mb-4 text-sm text-slate-600">
+          <p className="mb-4 text-sm text-muted">
             Upload a CSV file containing your lead data. We&apos;ll intelligently map
             columns to the GrowEasy CRM schema.
           </p>
 
           <div
             className={cn(
-              'relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-10 transition-colors',
+              'relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-10 transition-colors cursor-pointer',
               dropState === 'dragging' || dropState === 'hover'
-                ? 'border-teal-400 bg-teal-50'
+                ? 'border-success-border bg-success-bg'
                 : dropState === 'rejected'
-                  ? 'border-red-300 bg-red-50'
+                  ? 'border-error-border bg-error-bg'
                   : dropState === 'selected'
-                    ? 'border-teal-400 bg-teal-50/50'
-                    : 'border-slate-200 bg-slate-50 hover:border-slate-300',
+                    ? 'border-success-border bg-success-bg/50'
+                    : 'border-border bg-surface-secondary hover:border-muted hover:bg-surface-hover',
             )}
             onDragOver={(e) => {
               e.preventDefault();
@@ -114,20 +114,20 @@ export function UploadModal({ open, onClose, onFileSelected }: UploadModalProps)
           >
             {selectedFile ? (
               <div className="flex flex-col items-center gap-2">
-                <FileText className="h-10 w-10 text-teal-500" />
-                <p className="text-sm font-medium text-slate-900">{selectedFile.name}</p>
-                <p className="text-xs text-slate-500">{formatFileSize(selectedFile.size)}</p>
+                <FileText className="h-10 w-10 text-accent" />
+                <p className="text-sm font-medium text-primary">{selectedFile.name}</p>
+                <p className="text-xs text-muted">{formatFileSize(selectedFile.size)}</p>
               </div>
             ) : (
               <>
-                <Upload className="mb-3 h-10 w-10 text-slate-400" />
-                <p className="text-sm font-medium text-slate-700">
+                <Upload className="mb-3 h-10 w-10 text-muted" />
+                <p className="text-sm font-medium text-primary">
                   Drag and drop your CSV file here
                 </p>
-                <p className="mt-1 text-xs text-slate-500">or</p>
+                <p className="mt-1 text-xs text-muted">or</p>
                 <button
-                  className="mt-2 text-sm font-medium text-teal-600 hover:text-teal-700"
-                  onClick={() => inputRef.current?.click()}
+                  className="mt-2 text-sm font-medium text-accent hover:opacity-80"
+                  onClick={(e) => { e.stopPropagation(); inputRef.current?.click(); }}
                 >
                   Browse files
                 </button>
@@ -146,25 +146,25 @@ export function UploadModal({ open, onClose, onFileSelected }: UploadModalProps)
           </div>
 
           {error && (
-            <div className="mt-3 flex items-center gap-2 text-sm text-red-600">
+            <div className="mt-3 flex items-center gap-2 text-sm text-error-text bg-error-bg p-3 rounded-lg border border-error-border">
               <AlertCircle className="h-4 w-4 shrink-0" />
               {error}
             </div>
           )}
 
-          <p className="mt-3 text-xs text-slate-500">
+          <p className="mt-3 text-xs text-muted">
             Supported: CSV files up to {Math.round(LIMITS.MAX_FILE_SIZE_BYTES / 1024 / 1024)}MB
           </p>
 
           <button
             onClick={handleDownloadTemplate}
-            className="mt-2 text-xs font-medium text-teal-600 hover:text-teal-700"
+            className="mt-2 text-xs font-medium text-accent hover:opacity-80"
           >
             Download sample template
           </button>
         </div>
 
-        <div className="flex justify-end gap-3 border-t border-slate-200 px-6 py-4">
+        <div className="flex justify-end gap-3 border-t border-border px-6 py-4">
           <button className="btn-secondary" onClick={handleClose}>
             Cancel
           </button>
