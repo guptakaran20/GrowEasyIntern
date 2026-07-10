@@ -1,5 +1,5 @@
 {
-  "name": "@groeasy/web",
+  "name": "@importlyai/web",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@groeasy/shared": "*",
+    "@importlyai/shared": "*",
     "@tanstack/react-table": "^8.20.6",
     "@tanstack/react-virtual": "^3.11.2",
     "clsx": "^2.1.1",

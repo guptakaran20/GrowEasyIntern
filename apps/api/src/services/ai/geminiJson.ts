@@ -1,4 +1,4 @@
-import { CRM_FIELDS } from '@groeasy/shared';
+import { CRM_FIELDS } from '@importlyai/shared';
 import { logger } from '../../utils/logger';
 import {
   boundText,

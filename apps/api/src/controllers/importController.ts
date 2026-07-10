@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { importProcessRequestSchema } from '@groeasy/shared';
+import { importProcessRequestSchema } from '@importlyai/shared';
 import { processImport, startImportJob } from '../services/import/importEngine';
 import { jobStore } from '../services/import/jobStore';
 import { AppError } from '../middleware/errorHandler';

@@ -3,7 +3,7 @@ import type {
   ImportResult,
   ImportProcessRequest,
   ConfirmedMapping,
-} from '@groeasy/shared';
+} from '@importlyai/shared';
 import { API_URL } from './utils';
 
 interface ApiSuccess<T> {

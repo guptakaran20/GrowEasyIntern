@@ -5,7 +5,7 @@ import type {
   ImportProgress,
   CrmRecord,
   SkippedRecord,
-} from '@groeasy/shared';
+} from '@importlyai/shared';
 import { config } from '../../config';
 import { logger } from '../../utils/logger';
 import { extractBatch } from '../ai/geminiService';

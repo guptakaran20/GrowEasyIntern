@@ -6,7 +6,7 @@ import type {
   ImportResult,
   ConfirmedMapping,
   ImportProgress,
-} from '@groeasy/shared';
+} from '@importlyai/shared';
 import type { LocalPreview } from '@/lib/csvParser';
 import { analyzeCsv, startImportJob, subscribeToProgress, getImportResult } from '@/lib/api';
 

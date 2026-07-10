@@ -1,5 +1,5 @@
-import { CRM_STATUS_VALUES, DATA_SOURCE_VALUES } from '@groeasy/shared';
-import type { CrmStatus, DataSource } from '@groeasy/shared';
+import { CRM_STATUS_VALUES, DATA_SOURCE_VALUES } from '@importlyai/shared';
+import type { CrmStatus, DataSource } from '@importlyai/shared';
 
 const STATUS_PATTERNS: Array<{ pattern: RegExp; status: CrmStatus }> = [
   // BAD and negative patterns first to avoid "not interested" matching "interested"

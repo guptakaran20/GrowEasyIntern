@@ -5,7 +5,7 @@ import { Upload, FileText, AlertCircle } from 'lucide-react';
 import { cn, formatFileSize } from '@/lib/utils';
 import { validateCsvFile } from '@/lib/csvParser';
 import { getSampleTemplateCsv, downloadCsv } from '@/lib/export';
-import { LIMITS } from '@groeasy/shared';
+import { LIMITS } from '@importlyai/shared';
 
 type DropState = 'idle' | 'hover' | 'dragging' | 'rejected' | 'selected';
 
@@ -43,7 +43,7 @@ export function UploadZone({ onFileSelected }: UploadZoneProps) {
   );
 
   const handleDownloadTemplate = () => {
-    downloadCsv(getSampleTemplateCsv(), 'groeasy_crm_template.csv');
+    downloadCsv(getSampleTemplateCsv(), 'importlyai_crm_template.csv');
   };
 
   const handleContinue = () => {

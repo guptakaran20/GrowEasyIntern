@@ -8,7 +8,7 @@ import {
   detectRepeatedTailPattern,
 } from './promptInjection';
 import { buildRecordExtractionPrompt } from '../../ai/prompts/recordExtractionPrompt';
-import { CRM_STATUS_VALUES } from '@groeasy/shared';
+import { CRM_STATUS_VALUES } from '@importlyai/shared';
 
 const mappings = [
   { source_column: 'name', target_field: 'name' },

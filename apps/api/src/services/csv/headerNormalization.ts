@@ -67,7 +67,7 @@ export const HEADER_ALIASES: Record<string, string[]> = {
   description: ['description', 'details', 'info', 'about'],
 };
 
-import type { CrmField } from '@groeasy/shared';
+import type { CrmField } from '@importlyai/shared';
 
 export function getHeaderAliasHint(normalizedHeader: string): {
   field: CrmField;

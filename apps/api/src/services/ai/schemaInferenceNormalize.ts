@@ -1,4 +1,4 @@
-import { IGNORE_FIELD } from '@groeasy/shared';
+import { IGNORE_FIELD } from '@importlyai/shared';
 
 /** Model-generated aliases that mean "no CRM mapping" for target_field only */
 const UNMAPPED_TARGET_ALIASES = new Set([

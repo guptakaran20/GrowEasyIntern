@@ -1,6 +1,6 @@
 import { parse } from 'csv-parse/sync';
-import { LIMITS } from '@groeasy/shared';
-import type { ParsedRow } from '@groeasy/shared';
+import { LIMITS } from '@importlyai/shared';
+import type { ParsedRow } from '@importlyai/shared';
 import { AppError } from '../../middleware/errorHandler';
 import { deduplicateHeaders } from './headerNormalization';
 import { logger } from '../../utils/logger';

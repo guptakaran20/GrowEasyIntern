@@ -10,7 +10,7 @@ import { readFileSync, existsSync } from 'fs';
 
 import { join } from 'path';
 
-import type { CrmRecord } from '@groeasy/shared';
+import type { CrmRecord } from '@importlyai/shared';
 
 
 
@@ -160,7 +160,7 @@ async function main() {
 
     LIMITS,
 
-  } = await import('@groeasy/shared');
+  } = await import('@importlyai/shared');
 
 
 

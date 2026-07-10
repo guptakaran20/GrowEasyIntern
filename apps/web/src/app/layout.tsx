@@ -21,7 +21,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                let theme = localStorage.getItem('groeasy-theme');
+                let theme = localStorage.getItem('importlyai-theme');
                 if (!theme) {
                   theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                 }

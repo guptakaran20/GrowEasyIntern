@@ -1,7 +1,7 @@
 'use client';
 
 import { Loader2 } from 'lucide-react';
-import type { ImportProgress } from '@groeasy/shared';
+import type { ImportProgress } from '@importlyai/shared';
 
 interface ImportProgressPanelProps {
   progress: ImportProgress | null;

@@ -6,7 +6,7 @@ import {
   isMissingValuePlaceholder,
   normalizeOptionalAiText,
 } from './fieldGrounding';
-import { createEmptyCrmRecord } from '@groeasy/shared';
+import { createEmptyCrmRecord } from '@importlyai/shared';
 
 describe('isMissingValuePlaceholder', () => {
   it.each([

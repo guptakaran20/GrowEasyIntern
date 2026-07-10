@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import type { ImportProcessRequest } from '@groeasy/shared';
+import type { ImportProcessRequest } from '@importlyai/shared';
 import { processImport } from './importEngine';
 import { splitIntoBatches } from './recordBuilder';
 

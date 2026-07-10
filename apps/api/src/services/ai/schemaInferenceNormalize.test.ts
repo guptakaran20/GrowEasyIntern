@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { schemaInferenceResponseSchema, CRM_FIELDS, IGNORE_FIELD } from '@groeasy/shared';
+import { schemaInferenceResponseSchema, CRM_FIELDS, IGNORE_FIELD } from '@importlyai/shared';
 import {
   normalizeInferenceTargetField,
   normalizeSchemaInferenceResponse,

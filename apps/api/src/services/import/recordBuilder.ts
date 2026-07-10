@@ -4,8 +4,8 @@ import type {
   ConfirmedMapping,
   ParsedRow,
   ExtractedRecord,
-} from '@groeasy/shared';
-import { createEmptyCrmRecord, CRM_FIELDS } from '@groeasy/shared';
+} from '@importlyai/shared';
+import { createEmptyCrmRecord, CRM_FIELDS } from '@importlyai/shared';
 import {
   normalizeEmail,
   validateEmail,

@@ -14,7 +14,7 @@ import {
   isMissingValuePlaceholder,
   normalizeOptionalAiText,
 } from './fieldGrounding';
-import { createEmptyCrmRecord } from '@groeasy/shared';
+import { createEmptyCrmRecord } from '@importlyai/shared';
 import { loadTestCsv, TEST_FILES } from '../../test/testData';
 
 /** Typical mis-inference: Phone 2 mapped to state, alternate email ignored */

@@ -1,5 +1,5 @@
 {
-  "name": "groeasy-crm-importer",
+  "name": "importlyai-crm-importer",
   "version": "1.0.0",
   "private": true,
   "workspaces": [
@@ -7,13 +7,13 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w @groeasy/api\" \"npm run dev -w @groeasy/web\"",
-    "build": "npm run build -w @groeasy/shared && npm run build -w @groeasy/api && npm run build -w @groeasy/web",
-    "test": "npm run test -w @groeasy/api",
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w @importlyai/api\" \"npm run dev -w @importlyai/web\"",
+    "build": "npm run build -w @importlyai/shared && npm run build -w @importlyai/api && npm run build -w @importlyai/web",
+    "test": "npm run test -w @importlyai/api",
     "test:data": "tsx scripts/generate-test-data.ts",
     "evaluate": "tsx data/evaluation/run-evaluation.ts",
-    "lint": "npm run lint -w @groeasy/api && npm run lint -w @groeasy/web",
-    "typecheck": "npm run typecheck -w @groeasy/shared && npm run typecheck -w @groeasy/api && npm run typecheck -w @groeasy/web"
+    "lint": "npm run lint -w @importlyai/api && npm run lint -w @importlyai/web",
+    "typecheck": "npm run typecheck -w @importlyai/shared && npm run typecheck -w @importlyai/api && npm run typecheck -w @importlyai/web"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",

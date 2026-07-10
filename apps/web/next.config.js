@@ -2,7 +2,7 @@
 const path = require('path');
 
 const nextConfig = {
-  transpilePackages: ['@groeasy/shared'],
+  transpilePackages: ['@importlyai/shared'],
   output: 'standalone',
   outputFileTracingRoot: path.join(__dirname, '../../'),
 };

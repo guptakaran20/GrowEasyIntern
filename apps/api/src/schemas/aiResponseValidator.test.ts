@@ -6,8 +6,8 @@ import {
   crmRecordSchema,
   schemaInferenceResponseSchema,
   batchExtractionResponseSchema,
-} from '@groeasy/shared';
-import { createEmptyCrmRecord } from '@groeasy/shared';
+} from '@importlyai/shared';
+import { createEmptyCrmRecord } from '@importlyai/shared';
 import { hasValidContact } from '../services/import/recordBuilder';
 import { normalizeCrmStatus, normalizeDataSource, normalizeDate } from '../services/import/normalization';
 

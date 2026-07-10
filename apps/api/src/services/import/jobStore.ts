@@ -1,4 +1,4 @@
-import type { ImportProcessRequest, ImportResult, ImportProgress } from '@groeasy/shared';
+import type { ImportProcessRequest, ImportResult, ImportProgress } from '@importlyai/shared';
 import { config } from '../../config';
 
 interface Job {

@@ -15,8 +15,8 @@ RUN npm ci
 COPY . .
 
 # Build required packages
-RUN npm run build -w @groeasy/shared
-RUN npm run build -w @groeasy/api
+RUN npm run build -w @importlyai/shared
+RUN npm run build -w @importlyai/api
 
 FROM base AS runner
 ENV NODE_ENV=production

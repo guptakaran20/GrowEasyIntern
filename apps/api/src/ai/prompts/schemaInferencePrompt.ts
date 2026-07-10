@@ -3,7 +3,7 @@ import {
   CRM_STATUS_VALUES,
   DATA_SOURCE_VALUES,
   IGNORE_FIELD,
-} from '@groeasy/shared';
+} from '@importlyai/shared';
 
 export function buildSchemaInferencePrompt(
   headers: string[],

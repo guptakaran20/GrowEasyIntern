@@ -1,5 +1,5 @@
 import { SchemaType } from '@google/generative-ai';
-import { CRM_FIELDS } from '@groeasy/shared';
+import { CRM_FIELDS } from '@importlyai/shared';
 
 /** Strict bounded schema — CRM string fields only, no open objects or echo fields */
 export function buildBatchExtractionResponseSchema() {

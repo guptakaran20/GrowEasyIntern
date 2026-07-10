@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { LIMITS } from '@groeasy/shared';
+import { LIMITS } from '@importlyai/shared';
 import { parseCsvBuffer, validateCsvFile } from '../services/csv/parser';
 import { profileDataset, getSampleRows } from '../services/csv/profiler';
 import { inferSchema } from '../services/ai/geminiService';

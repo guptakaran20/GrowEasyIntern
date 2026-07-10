@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { parseCsvLocally, INCREMENTAL_PARSE_THRESHOLD_BYTES } from './csvParser';
 import Papa from 'papaparse';
-import { LIMITS } from '@groeasy/shared';
+import { LIMITS } from '@importlyai/shared';
 
 // Helper to create a mock File
 function createMockFile(content: string, name: string, type = 'text/csv'): File {

@@ -2,7 +2,7 @@ import {
   CRM_FIELD_ORDER,
   type CrmRecord,
   type SkippedRecord,
-} from '@groeasy/shared';
+} from '@importlyai/shared';
 
 function escapeCsvField(value: string): string {
   let escaped = value;

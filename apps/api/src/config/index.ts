@@ -1,4 +1,4 @@
-import { LIMITS } from '@groeasy/shared';
+import { LIMITS } from '@importlyai/shared';
 
 export const config = {
   limits: LIMITS,

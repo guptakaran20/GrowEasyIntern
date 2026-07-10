@@ -1,4 +1,4 @@
-import type { ConfirmedMapping, CrmRecord, ParsedRow } from '@groeasy/shared';
+import type { ConfirmedMapping, CrmRecord, ParsedRow } from '@importlyai/shared';
 import { shouldRejectValueForField } from './contactSelection';
 import { normalizeDate } from './normalization';
 

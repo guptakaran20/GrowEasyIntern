@@ -5,7 +5,7 @@ import {
   isJsonParseError,
   normalizeBatchExtraction,
 } from './geminiJson';
-import { batchExtractionResponseSchema } from '@groeasy/shared';
+import { batchExtractionResponseSchema } from '@importlyai/shared';
 
 async function withRetryLikeGemini<T>(
   fn: () => Promise<T>,

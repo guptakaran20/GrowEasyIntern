@@ -1,4 +1,4 @@
-import type { CrmRecord, ParsedRow } from '@groeasy/shared';
+import type { CrmRecord, ParsedRow } from '@importlyai/shared';
 import {
   extractEmails,
   extractPhones,

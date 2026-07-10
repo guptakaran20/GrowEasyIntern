@@ -1,4 +1,4 @@
-export const THEME_STORAGE_KEY = 'groeasy-theme';
+export const THEME_STORAGE_KEY = 'importlyai-theme';
 
 export type Theme = 'light' | 'dark';
 

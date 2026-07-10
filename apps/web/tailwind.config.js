@@ -19,7 +19,7 @@ module.exports = {
         primary: 'var(--color-text-primary)',
         muted: 'var(--color-text-muted)',
         
-        groeasy: {
+        importlyai: {
           primary: 'var(--color-primary)',
           accent: 'var(--color-accent)',
           sidebar: 'var(--color-sidebar)', // legacy token from previous setup

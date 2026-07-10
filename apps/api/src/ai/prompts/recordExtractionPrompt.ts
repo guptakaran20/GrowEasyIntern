@@ -2,7 +2,7 @@ import {
   CRM_FIELDS,
   CRM_STATUS_VALUES,
   DATA_SOURCE_VALUES,
-} from '@groeasy/shared';
+} from '@importlyai/shared';
 import type { PromptRow, MappingInput } from '../../services/ai/promptInjection';
 
 export function buildRecordExtractionPrompt(

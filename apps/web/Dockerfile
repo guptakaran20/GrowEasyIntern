@@ -19,8 +19,8 @@ ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 # Build shared first, then web
-RUN npm run build -w @groeasy/shared
-RUN npm run build -w @groeasy/web
+RUN npm run build -w @importlyai/shared
+RUN npm run build -w @importlyai/web
 
 FROM base AS runner
 ENV NODE_ENV=production

@@ -5,7 +5,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { FileText, X } from 'lucide-react';
 import type { LocalPreview } from '@/lib/csvParser';
 import { formatFileSize } from '@/lib/utils';
-import { LIMITS } from '@groeasy/shared';
+import { LIMITS } from '@importlyai/shared';
 
 interface PreviewTableProps {
   preview: LocalPreview;

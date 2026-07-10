@@ -9,12 +9,12 @@ import {
   RotateCcw,
   Search,
 } from 'lucide-react';
-import type { ImportResult } from '@groeasy/shared';
+import type { ImportResult } from '@importlyai/shared';
 import {
   CRM_FIELD_ORDER,
   CRM_FIELD_LABELS,
   type CrmField,
-} from '@groeasy/shared';
+} from '@importlyai/shared';
 import { exportRecordsToCsv, exportSkippedToCsv, downloadCsv } from '@/lib/export';
 import { formatPercent, cn } from '@/lib/utils';
 
@@ -37,13 +37,13 @@ export function ResultsPanel({ result, onNewImport }: ResultsPanelProps) {
 
   const handleExportImported = () => {
     const csv = exportRecordsToCsv(result.imported_records);
-    downloadCsv(csv, `groeasy_import_${result.file_name}`);
+    downloadCsv(csv, `importlyai_import_${result.file_name}`);
   };
 
   const handleExportSkipped = () => {
     if (result.skipped_records.length === 0) return;
     const csv = exportSkippedToCsv(result.skipped_records);
-    downloadCsv(csv, `groeasy_skipped_${result.file_name}`);
+    downloadCsv(csv, `importlyai_skipped_${result.file_name}`);
   };
 
   return (

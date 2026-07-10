@@ -85,7 +85,7 @@ graph TD
 - **Frontend:** Next.js (Standalone)
 - **Backend:** Node.js / Express API
 - **AI Engine:** Google Gemini
-- **Types:** Shared Zod package (`@groeasy/shared`)
+- **Types:** Shared Zod package (`@importlyai/shared`)
 
 ## 5. Can I inspect the code quickly?
 

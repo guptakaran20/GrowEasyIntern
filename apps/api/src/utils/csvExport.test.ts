@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { parseCsvBuffer } from '../services/csv/parser';
 import { exportRecordsToCsv } from '../utils/csvExport';
-import { createEmptyCrmRecord, CRM_FIELD_ORDER } from '@groeasy/shared';
+import { createEmptyCrmRecord, CRM_FIELD_ORDER } from '@importlyai/shared';
 import { loadTestCsv, TEST_FILES } from '../test/testData';
 import { buildCrmRecordFromExtracted } from '../services/import/recordBuilder';
-import type { ConfirmedMapping } from '@groeasy/shared';
+import type { ConfirmedMapping } from '@importlyai/shared';
 
 describe('csvExporter round-trip', () => {
   it('exports with exact CRM field headers', () => {

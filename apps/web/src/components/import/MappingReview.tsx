@@ -1,13 +1,13 @@
 'use client';
 
 import { AlertTriangle, X } from 'lucide-react';
-import type { AnalysisResponse, ConfirmedMapping } from '@groeasy/shared';
+import type { AnalysisResponse, ConfirmedMapping } from '@importlyai/shared';
 import {
   CRM_FIELDS,
   CRM_FIELD_LABELS,
   IGNORE_FIELD,
   getConfidenceTier,
-} from '@groeasy/shared';
+} from '@importlyai/shared';
 import { cn } from '@/lib/utils';
 
 interface MappingReviewProps {

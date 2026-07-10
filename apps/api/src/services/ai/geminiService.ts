@@ -7,7 +7,7 @@ import {
   batchExtractionResponseSchema,
   type SchemaInferenceResponse,
   type BatchExtractionResponse,
-} from '@groeasy/shared';
+} from '@importlyai/shared';
 import { buildSchemaInferencePrompt } from '../../ai/prompts/schemaInferencePrompt';
 import { buildRecordExtractionPrompt } from '../../ai/prompts/recordExtractionPrompt';
 import { buildBatchExtractionResponseSchema } from './batchExtractionSchema';

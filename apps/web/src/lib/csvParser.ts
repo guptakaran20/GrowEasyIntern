@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-import { LIMITS } from '@groeasy/shared';
+import { LIMITS } from '@importlyai/shared';
 
 export interface LocalPreview {
   fileName: string;

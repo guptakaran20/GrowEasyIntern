@@ -1,5 +1,5 @@
-import type { ColumnProfile, SemanticHint, ParsedRow } from '@groeasy/shared';
-import { LIMITS } from '@groeasy/shared';
+import type { ColumnProfile, SemanticHint, ParsedRow } from '@importlyai/shared';
+import { LIMITS } from '@importlyai/shared';
 import { normalizeHeader, getHeaderAliasHint } from './headerNormalization';
 import {
   isLikelyEmail,

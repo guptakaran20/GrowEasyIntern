@@ -19,7 +19,7 @@ describe('useImportFlow', () => {
     act(() => {
       result.current.setState({
         file: new File([''], 'test.csv'),
-        analysis: { all_rows: [] } as unknown as import('@groeasy/shared').AnalysisResponse,
+        analysis: { all_rows: [] } as unknown as import('@importlyai/shared').AnalysisResponse,
         mappings: [],
       });
     });
@@ -123,7 +123,7 @@ describe('useImportFlow', () => {
 
   it('5 & 6. completion fetches result exactly once & duplicate completion event is ignored', async () => {
     vi.mocked(api.startImportJob).mockResolvedValue('job-1');
-    vi.mocked(api.getImportResult).mockResolvedValue({ total_rows: 10 } as unknown as import('@groeasy/shared').ImportResult);
+    vi.mocked(api.getImportResult).mockResolvedValue({ total_rows: 10 } as unknown as import('@importlyai/shared').ImportResult);
     
     let onCompleteCb: () => void;
     vi.mocked(api.subscribeToProgress).mockImplementation((jobId, onProgress, onComplete) => {
