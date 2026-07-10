@@ -4,6 +4,17 @@ An AI-powered CSV-to-CRM importer that converts messy, inconsistent lead exports
 
 ![Product Screenshot](docs/images/product_screenshot.png)
 
+## User Flow
+
+### 1. Upload & Parse
+![Import Phase](docs/images/import.png)
+
+### 2. AI Schema Mapping
+![Mapping Phase](docs/images/mapping.png)
+
+### 3. Final Results & Export
+![Results Phase](docs/images/result.png)
+
 ## 1. What does this project do?
 
 Importlyai CRM Importer is a robust pipeline that safely ingests unstandardized data formats—such as exports from Facebook Leads, Google Ads, or custom Real Estate databases—and maps them seamlessly to a unified CRM schema.
